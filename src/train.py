@@ -52,12 +52,17 @@ class ATT_MADDPG_Trainer:
             self.obs_dims.append(obs_space.shape[0])
             self.action_dims.append(action_space.shape[0])
         
+        # Total action dimension for the centralized critic
+        total_action_dim = sum(self.action_dims)
+
         # Create agents
         self.agents = []
         for i in range(num_agents):
             agent = MADDPGAgent(
                 obs_dim=self.obs_dims[i],
                 action_dim=self.action_dims[i],
+                num_agents=self.num_agents,
+                total_action_dim=total_action_dim,
                 lr_actor=lr_actor,
                 lr_critic=lr_critic,
                 gamma=gamma,
@@ -107,61 +112,40 @@ class ATT_MADDPG_Trainer:
             episode_reward = 0
             episode_length = 0
             
-            # Store observations and actions for all agents
-            obs_dict = {agent: [] for agent in self.env.possible_agents}
-            action_dict = {agent: [] for agent in self.env.possible_agents}
-            reward_dict = {agent: [] for agent in self.env.possible_agents}
-            next_obs_dict = {agent: [] for agent in self.env.possible_agents}
-            done_dict = {agent: [] for agent in self.env.possible_agents}
-            
-            while True:
+            # Use a list to store agent observations for the replay buffer
+            done = False
+            while not done:
                 # Select actions for all agents
                 actions = {}
-                for i, agent in enumerate(self.env.possible_agents):
+                for i, agent_name in enumerate(self.env.possible_agents):
                     action, _ = self.agents[i].select_action(
-                        observations[agent], 
+                        observations[agent_name], 
                         add_noise=True
                     )
-                    actions[agent] = action
-                
-                # Store observations
-                for agent in self.env.possible_agents:
-                    obs_dict[agent].append(observations[agent])
-                
-                # Step environment (returns obs, rewards, terminations, truncations, infos)
+                    actions[agent_name] = action
+
+                # Step environment
                 next_observations, rewards, terminations, truncations, infos = self.env.step(actions)
-                dones = {a: (terminations[a] or truncations[a]) for a in self.env.possible_agents}
+                dones = {a: terminations[a] or truncations[a] for a in self.env.possible_agents}
+
+                # Store experience in replay buffer
+                obs_list = [observations[a] for a in self.env.possible_agents]
+                action_list = [actions[a] for a in self.env.possible_agents]
+                reward_list = [rewards[a] for a in self.env.possible_agents]
+                next_obs_list = [next_observations[a] for a in self.env.possible_agents]
+                done_list = [dones[a] for a in self.env.possible_agents]
                 
-                # Store actions, rewards, next observations, and dones
-                for agent in self.env.possible_agents:
-                    action_dict[agent].append(actions[agent])
-                    reward_dict[agent].append(rewards[agent])
-                    next_obs_dict[agent].append(next_observations[agent])
-                    done_dict[agent].append(dones[agent])
-                
-                # Update episode reward
-                episode_reward += sum(rewards.values())
-                episode_length += 1
-                
-                # Check if episode is done
-                if all(dones.values()):
-                    break
+                self.replay_buffer.add(obs_list, action_list, reward_list, next_obs_list, done_list)
                 
                 observations = next_observations
-            
-            # Store episode data
+                episode_reward += sum(rewards.values())
+                episode_length += 1
+
+                if any(dones.values()):
+                    done = True
+
             self.episode_rewards.append(episode_reward)
             self.episode_lengths.append(episode_length)
-            
-            # Add experiences to replay buffer per timestep
-            num_steps = len(next_obs_dict[self.env.possible_agents[0]])
-            for t in range(num_steps):
-                obs_t = {i: obs_dict[self.env.possible_agents[i]][t] for i in range(self.num_agents)}
-                act_t = {i: action_dict[self.env.possible_agents[i]][t] for i in range(self.num_agents)}
-                rew_t = {i: reward_dict[self.env.possible_agents[i]][t] for i in range(self.num_agents)}
-                next_obs_t = {i: next_obs_dict[self.env.possible_agents[i]][t] for i in range(self.num_agents)}
-                done_t = {i: done_dict[self.env.possible_agents[i]][t] for i in range(self.num_agents)}
-                self.replay_buffer.add(obs_t, act_t, rew_t, next_obs_t, done_t)
             
             # Update agents if buffer has enough samples
             if len(self.replay_buffer) >= self.batch_size:
@@ -169,11 +153,12 @@ class ATT_MADDPG_Trainer:
                     batch = self.replay_buffer.sample(self.batch_size)
                     losses = self.agents[i].update(batch, self.agents, i)
                     
-                    self.actor_losses[i].append(losses['actor_loss'])
-                    self.critic_losses[i].append(losses['critic_loss'])
+                    if losses:
+                        self.actor_losses[i].append(losses['actor_loss'])
+                        self.critic_losses[i].append(losses['critic_loss'])
             
             # Evaluation
-            if episode % self.eval_interval == 0:
+            if episode % self.eval_interval == 0 and episode > 0:
                 eval_reward = self.evaluate(num_episodes=5, visualize=False)
                 print(f"Episode {episode}, Eval Reward: {eval_reward:.2f}")
                 
@@ -182,11 +167,11 @@ class ATT_MADDPG_Trainer:
                     self.save_models(f"best_model_episode_{episode}")
             
             # Save models
-            if episode % self.save_interval == 0:
+            if episode % self.save_interval == 0 and episode > 0:
                 self.save_models(f"checkpoint_episode_{episode}")
             
             # Plot training progress
-            if episode % 100 == 0:
+            if episode % 100 == 0 and episode > 0:
                 self.plotter.plot_training_progress(
                     self.episode_rewards,
                     self.episode_lengths,
@@ -207,8 +192,9 @@ class ATT_MADDPG_Trainer:
         for episode in range(num_episodes):
             observations, _ = self.env.reset()
             episode_reward = 0
+            done = False
             
-            while True:
+            while not done:
                 actions = {}
                 for i, agent in enumerate(self.env.possible_agents):
                     action, _ = self.agents[i].select_action(
@@ -221,8 +207,8 @@ class ATT_MADDPG_Trainer:
                 dones = {a: (terminations[a] or truncations[a]) for a in self.env.possible_agents}
                 episode_reward += sum(rewards.values())
                 
-                if all(dones.values()):
-                    break
+                if any(dones.values()):
+                    done = True
                 
                 observations = next_observations
             
@@ -242,8 +228,10 @@ class ATT_MADDPG_Trainer:
         np.save(f"logs/{model_name}_lengths.npy", self.episode_lengths)
         
         for i in range(self.num_agents):
-            np.save(f"logs/{model_name}_actor_losses_{i}.npy", self.actor_losses[i])
-            np.save(f"logs/{model_name}_critic_losses_{i}.npy", self.critic_losses[i])
+            if self.actor_losses[i]:
+                np.save(f"logs/{model_name}_actor_losses_{i}.npy", self.actor_losses[i])
+            if self.critic_losses[i]:
+                np.save(f"logs/{model_name}_critic_losses_{i}.npy", self.critic_losses[i])
     
     def load_models(self, model_name):
         """

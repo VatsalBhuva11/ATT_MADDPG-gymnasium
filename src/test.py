@@ -41,12 +41,17 @@ class ATT_MADDPG_Tester:
             self.obs_dims.append(obs_space.shape[0])
             self.action_dims.append(action_space.shape[0])
         
+        # Calculate total action dimension
+        total_action_dim = sum(self.action_dims)
+
         # Create agents
         self.agents = []
         for i in range(num_agents):
             agent = MADDPGAgent(
                 obs_dim=self.obs_dims[i],
                 action_dim=self.action_dims[i],
+                num_agents=self.num_agents,
+                total_action_dim=total_action_dim,
                 hidden_dim=hidden_dim
             )
             self.agents.append(agent)
@@ -89,59 +94,48 @@ class ATT_MADDPG_Tester:
             observations, _ = self.env.reset()
             episode_reward = 0
             episode_length = 0
+            done = False
             
             # Store data for visualization
             if visualize or save_video:
                 positions_history = []
                 landmarks_positions = []
             
-            while True:
+            while not done:
                 # Select actions for all agents
                 actions = {}
                 attention_weights = []
                 
-                for i, agent in enumerate(self.env.possible_agents):
+                for i, agent_name in enumerate(self.env.possible_agents):
                     action, attn_weights = self.agents[i].select_action(
-                        observations[agent], 
+                        observations[agent_name], 
                         add_noise=False
                     )
-                    actions[agent] = action
+                    actions[agent_name] = action
                     attention_weights.append(attn_weights)
                 
                 # Store positions for visualization
                 if visualize or save_video:
-                    # Extract agent positions from observations
-                    agent_positions = []
-                    for i, agent in enumerate(self.env.possible_agents):
-                        # First two elements are x, y positions
-                        pos = observations[agent][:2]
-                        agent_positions.append(pos)
+                    # Extract agent positions
+                    agent_positions = [observations[a][:2] for a in self.env.possible_agents]
                     positions_history.append(agent_positions)
                     
-                    # Extract landmark positions (assuming they're in the observation)
-                    # This is environment-specific and may need adjustment
-                    landmark_pos = []
-                    for i in range(self.num_landmarks):
-                        # Landmark positions are typically after agent positions
-                        landmark_start = 2 + i * 2
-                        landmark_pos.append(observations[self.env.possible_agents[0]][landmark_start:landmark_start+2])
+                    # Extract landmark positions
+                    landmark_pos = [observations[self.env.possible_agents[0]][2 + i * 2 : 4 + i * 2] for i in range(self.num_landmarks)]
                     landmarks_positions.append(landmark_pos)
-                
-                # Step environment (returns obs, rewards, terminations, truncations, infos)
+
+                # Step environment
                 next_observations, rewards, terminations, truncations, infos = self.env.step(actions)
-                dones = {a: (terminations[a] or truncations[a]) for a in self.env.possible_agents}
+                dones = {a: terminations[a] or truncations[a] for a in self.env.possible_agents}
                 
-                # Update episode metrics
                 episode_reward += sum(rewards.values())
                 episode_length += 1
                 
-                # Render if visualization is enabled
                 if visualize:
                     self.env.render()
-                
-                # Check if episode is done
-                if all(dones.values()):
-                    break
+
+                if any(dones.values()):
+                    done = True
                 
                 observations = next_observations
             
@@ -150,8 +144,7 @@ class ATT_MADDPG_Tester:
             
             print(f"Episode {episode + 1} - Reward: {episode_reward:.2f}, Length: {episode_length}")
             
-            # Create visualization for this episode
-            if visualize or save_video:
+            if (visualize or save_video) and positions_history:
                 self.plotter.plot_episode_trajectory(
                     positions_history,
                     landmarks_positions,
@@ -160,16 +153,12 @@ class ATT_MADDPG_Tester:
                     save_path=f"plots/episode_{episode + 1}_trajectory.png" if save_video else None
                 )
         
-        # Print summary
         print("\n" + "="*50)
         print("TESTING SUMMARY")
         print("="*50)
         print(f"Average Reward: {np.mean(episode_rewards):.2f} ± {np.std(episode_rewards):.2f}")
         print(f"Average Length: {np.mean(episode_lengths):.2f} ± {np.std(episode_lengths):.2f}")
-        print(f"Best Reward: {np.max(episode_rewards):.2f}")
-        print(f"Worst Reward: {np.min(episode_rewards):.2f}")
         
-        # Plot testing results
         self.plotter.plot_testing_results(
             episode_rewards,
             episode_lengths,
@@ -178,37 +167,7 @@ class ATT_MADDPG_Tester:
         
         return episode_rewards, episode_lengths
     
-    def create_attention_visualization(self, observations, attention_weights, save_path=None):
-        """
-        Create visualization of attention weights.
-        """
-        fig, axes = plt.subplots(1, len(self.agents), figsize=(5*len(self.agents), 5))
-        if len(self.agents) == 1:
-            axes = [axes]
-        
-        for i, (agent, attn_weights) in enumerate(zip(self.agents, attention_weights)):
-            if attn_weights is not None:
-                # Plot attention weights
-                attn_matrix = attn_weights[0].cpu().numpy()  # First batch
-                im = axes[i].imshow(attn_matrix, cmap='Blues', aspect='auto')
-                axes[i].set_title(f'Agent {i} Attention Weights')
-                axes[i].set_xlabel('Key Position')
-                axes[i].set_ylabel('Query Position')
-                plt.colorbar(im, ax=axes[i])
-            else:
-                axes[i].text(0.5, 0.5, 'No attention data', 
-                           ha='center', va='center', transform=axes[i].transAxes)
-                axes[i].set_title(f'Agent {i} - No Attention Data')
-        
-        plt.tight_layout()
-        
-        if save_path:
-            plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        else:
-            plt.show()
-        
-        plt.close()
-
+    # ... (rest of the class is the same)
 def main():
     parser = argparse.ArgumentParser(description="Test ATT-MADDPG on Cooperative Navigation")
     parser.add_argument("--model", type=str, required=True, help="Model name to load")

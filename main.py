@@ -20,8 +20,8 @@ import os
 # Add src to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from train import ATT_MADDPG_Trainer
-from test import ATT_MADDPG_Tester
+from src.train import ATT_MADDPG_Trainer
+from src.test import ATT_MADDPG_Tester
 
 def train_command(args):
     """Handle training command."""
