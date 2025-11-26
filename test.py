@@ -5,6 +5,8 @@ from collections import deque, namedtuple
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 # Use GPU if available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -349,11 +351,104 @@ class AttMADDPG:
             for p, tp in zip(self.agents[i].actor.parameters(), self.agents[i].target_actor.parameters()):
                 tp.data.copy_(self.tau * p.data + (1 - self.tau) * tp.data)
 
+
+    def save_checkpoint(self, filename):
+        """Saves the actor state dictionaries of all agents."""
+        state = {}
+        for i, agent in enumerate(self.agents):
+            state[f'agent_{i}_actor'] = agent.actor.state_dict()
+        torch.save(state, filename)
+        print(f"Models saved to {filename}")
+
+    def load_checkpoint(self, filename):
+        """Loads actor state dictionaries."""
+        if not torch.cuda.is_available():
+            state = torch.load(filename, map_location='cpu')
+        else:
+            state = torch.load(filename)
+            
+        for i, agent in enumerate(self.agents):
+            if f'agent_{i}_actor' in state:
+                agent.actor.load_state_dict(state[f'agent_{i}_actor'])
+        print(f"Models loaded from {filename}")
+
+
+def visualize_model(filename, n_agents=3, neighbor_obs=2):
+    # 1. Setup Environment
+    env = FlockingEnv(n_agents=n_agents, neighbor_obs=neighbor_obs)
+    obs = env.reset()
+    
+    # 2. Setup Trainer & Load Weights
+    obs_dim = obs.shape[1]
+    action_dim = 2
+    trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs)
+    try:
+        trainer.load_checkpoint(filename)
+    except FileNotFoundError:
+        print(f"Error: Could not find file {filename}.")
+        return
+
+    # 3. Run Simulation
+    pos_history = []
+    actions_history = []
+    
+    # Store initial position
+    pos_history.append(env.pos.copy())
+    
+    for t in range(env.max_steps):
+        actions = trainer.select_actions(obs, noise_scale=0.0)
+        next_obs, rewards, done, _ = env.step(actions)
+        pos_history.append(env.pos.copy())
+        obs = next_obs
+        if done: break
+            
+    # 4. Animation
+    print(f"Generating animation for {len(pos_history)} steps...")
+    
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.set_xlim(0, env.world_size)
+    ax.set_ylim(0, env.world_size)
+    ax.set_title(f"ATT-MADDPG Flocking ({n_agents} Agents)")
+    
+    goal_circle = plt.Circle(env.goal, 0.5, color='green', alpha=0.3, label='Goal')
+    ax.add_patch(goal_circle)
+    
+    colors = plt.cm.jet(np.linspace(0, 1, n_agents))
+    
+    # Initialize with starting positions
+    initial_pos = pos_history[0]
+    scat = ax.scatter(initial_pos[:, 0], initial_pos[:, 1], c=colors, s=100)
+    
+    trails = [ax.plot([], [], '-', alpha=0.3, color=c)[0] for c in colors]
+
+    def update(frame):
+        current_pos = pos_history[frame]
+        scat.set_offsets(current_pos)
+        
+        tail_len = 20
+        start = max(0, frame - tail_len)
+        for i in range(n_agents):
+            path = np.array([p[i] for p in pos_history[start:frame+1]])
+            if len(path) > 0:
+                trails[i].set_data(path[:, 0], path[:, 1])
+        return [scat] + trails
+
+    ani = FuncAnimation(fig, update, frames=len(pos_history), interval=50, blit=True)
+    
+    # --- CHANGED CODE BELOW ---
+    output_file = "flocking_simulation.gif"
+    print(f"Saving animation to {output_file}...")
+    
+    # 'pillow' writer creates a GIF and usually comes installed with matplotlib
+    ani.save(output_file, writer='pillow', fps=20)
+    print("Done! Check your folder for the GIF file.")
+    
+    # plt.show()  <-- Removed this
 # ------------------------------
 # Training script (main)
 # ------------------------------
-def train_example():
-    n_agents = 3
+def train_example(save_path="att_maddpg_model_3_agents.pth"):
+    n_agents = 6    
     neighbor_obs = 2
     env = FlockingEnv(n_agents=n_agents, neighbor_obs=neighbor_obs)
     
@@ -362,12 +457,10 @@ def train_example():
     action_dim = 2
 
     print(f"Device: {device}")
-    print(f"Obs dim: {obs_dim}, Action dim: {action_dim}")
-
     trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs, K=4, critic_lr=1e-3)
     buffer = ReplayBuffer(100000)
     
-    episodes = 5000 # Reduced for quick test; increase for real training
+    episodes = 10000 # Increased slightly for better convergence before saving
     max_steps = env.max_steps
     batch_size = 64
 
@@ -376,33 +469,35 @@ def train_example():
         ep_reward = 0.0
         
         for t in range(max_steps):
-            # Decay noise
             noise = max(0.05, 0.5 * (1 - ep / episodes))
             actions = trainer.select_actions(obs, noise_scale=noise)
-            
             next_obs, rewards, done, _ = env.step(actions)
             
-            # Push to buffer
             buffer.push(
-                obs.copy(), 
-                actions.copy(), 
-                rewards.copy(), 
-                next_obs.copy(), 
-                np.array([float(done)]*n_agents, dtype=np.float32)
+                obs.copy(), actions.copy(), rewards.copy(), 
+                next_obs.copy(), np.array([float(done)]*n_agents, dtype=np.float32)
             )
 
             trainer.update(buffer, batch_size=batch_size)
-            
             obs = next_obs
-            ep_reward += rewards[0]  # shared reward
-            
-            if done:
-                break
+            ep_reward += rewards[0]
+            if done: break
                 
-        if (ep+1) % 20 == 0:
-            print(f"Episode {ep+1}/{episodes}, reward={ep_reward:.3f}, buffer={len(buffer)}")
+        if (ep+1) % 50 == 0:
+            print(f"Episode {ep+1}/{episodes}, Reward: {ep_reward:.3f}")
 
     print("Training finished.")
+    trainer.save_checkpoint(save_path)
 
 if __name__ == "__main__":
-    train_example()
+    # Choose mode: "train" or "test"
+    MODE = "test" 
+    MODEL_FILE = "./training_6_agents/att_maddpg_model.pth"
+
+    if MODE == "train":
+        train_example(save_path=MODEL_FILE)
+        # Optional: auto-visualize after training
+        visualize_model(MODEL_FILE, n_agents=3)
+        
+    elif MODE == "test":
+        visualize_model(MODEL_FILE, n_agents=5)
