@@ -17,7 +17,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # ------------------------------
 class FlockingEnv:
     def __init__(self, n_agents=3, n_obstacles=3, world_size=10.0, dt=0.1, max_steps=200,
-                 neighbor_obs=2, obstacle_obs=2, max_speed=1.0, seed=None, save_map_path=None):
+                 neighbor_obs=2, obstacle_obs=2, max_speed=1.0, seed=None, save_map_path=None, agent_radius=0.15):
         if seed is not None:
             np.random.seed(seed)
         self.n = n_agents
@@ -31,6 +31,7 @@ class FlockingEnv:
         self.obstacle_radius = 0.8
         self.max_speed = max_speed
         self.save_map_path = save_map_path
+        self.agent_radius = agent_radius
 
         # Generate fixed map once
         self.goal = np.array([self.world_size * 0.85, self.world_size * 0.85], dtype=np.float32)
@@ -57,18 +58,89 @@ class FlockingEnv:
         self.obstacles = d['obstacles']
 
     def reset(self):
-        center = np.array([self.world_size * 0.15, self.world_size * 0.15])
-        spread = self.world_size * 0.08
-        self.pos = center + (np.random.rand(self.n, 2) - 0.5) * spread
-        self.vel = (np.random.rand(self.n, 2) - 0.5) * (self.max_speed * 0.2)
+        """
+        Initialize agents in a formation around a start center such that:
+        - inter-agent spacing >= desired_spacing (if possible)
+        - uses circular formation for natural flocking spacing
+        - falls back to a centered grid if the circular radius would exceed start area
+        The agents get a small random velocity perturbation (not colliding).
+        """
+        # Start zone center and available radius for placing agents
+        start_center = np.array([self.world_size * 0.15, self.world_size * 0.15], dtype=np.float32)
+        max_start_radius = self.world_size * 0.08  # how far from center agents can be placed
+
+        # Desired safe spacing between agents (world units). Tune to your desired formation.
+        # Using same 'desired' from flocking rewards is reasonable.
+        desired_spacing = 0.8
+
+        n = self.n
+        positions = []
+
+        if n == 1:
+            positions = [start_center.copy()]
+        else:
+            # try a single-ring circular placement with arc spacing >= desired_spacing
+            # arc chord spacing s between neighbors on a circle of radius r: s = 2 * r * sin(pi/n)
+            # solve for r: r = s / (2 * sin(pi/n))
+            denom = 2.0 * np.sin(np.pi / max(1, n))
+            # numerically safe
+            if denom <= 1e-6:
+                circ_r = max_start_radius
+            else:
+                circ_r = desired_spacing / denom
+
+            if circ_r <= max_start_radius:
+                # place on a circle of radius circ_r
+                angles = np.linspace(0, 2 * np.pi, n, endpoint=False)
+                for theta in angles:
+                    p = start_center + np.array([circ_r * np.cos(theta), circ_r * np.sin(theta)], dtype=np.float32)
+                    positions.append(p)
+            else:
+                # fallback: centered grid with spacing = desired_spacing
+                grid_spacing = desired_spacing
+                grid_side = int(np.ceil(np.sqrt(n)))
+                # Build grid centered at start_center
+                half_span = (grid_side - 1) * grid_spacing / 2.0
+                xs = np.linspace(start_center[0] - half_span, start_center[0] + half_span, grid_side)
+                ys = np.linspace(start_center[1] - half_span, start_center[1] + half_span, grid_side)
+                for xi in xs:
+                    for yi in ys:
+                        if len(positions) < n:
+                            positions.append(np.array([xi, yi], dtype=np.float32))
+                # If any position out of bounds due to edges, clip them into world but try keep spacing
+                for i in range(len(positions)):
+                    positions[i] = np.clip(positions[i], 0.0 + self.agent_radius, self.world_size - self.agent_radius)
+
+        # convert to numpy array and assign
+        self.pos = np.vstack(positions).astype(np.float32)
+
+        # Safety: if any accidental overlap remains (numerical), apply tiny jitter outward
+        for i in range(n):
+            for j in range(i + 1, n):
+                d = np.linalg.norm(self.pos[i] - self.pos[j])
+                min_allowed = 2.0 * getattr(self, 'agent_radius', 0.15) + 1e-3
+                if d < min_allowed:
+                    # push j slightly along outward radial direction relative to start center
+                    dir_vec = self.pos[j] - start_center
+                    if np.linalg.norm(dir_vec) < 1e-6:
+                        dir_vec = np.random.randn(2)
+                    dir_vec = dir_vec / (np.linalg.norm(dir_vec) + 1e-9)
+                    self.pos[j] += dir_vec * (min_allowed - d + 1e-3)
+
+        # small random initial velocities (low magnitude) for variety but not causing immediate collisions
+        self.vel = (np.random.rand(self.n, 2) - 0.5) * (self.max_speed * 0.05)
+
+        # reset flags and bookkeeping
         self.finished = np.zeros(self.n, dtype=bool)
         self.crashed = np.zeros(self.n, dtype=bool)
         self.prev_dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
         self.t = 0
+
         return self._get_obs()
 
+
     def step(self, actions):
-        # ALWAYS clip actions (fix bug)
+        # ALWAYS clip actions
         a = np.clip(actions, -1.0, 1.0)
 
         active_mask = ~(self.finished | self.crashed)
@@ -91,7 +163,7 @@ class FlockingEnv:
         else:
             new_pos = self.pos.copy()
 
-        # Crash check with obstacles
+        # Crash check with fixed obstacles
         if len(self.obstacles) > 0:
             for i in range(self.n):
                 if not active_mask[i]:
@@ -102,12 +174,35 @@ class FlockingEnv:
                     self.vel[i] = 0.0
                     new_pos[i] = self.pos[i]  # stop before entering obstacle
 
+        # --- NEW: Agent-Agent collision detection (treat other agents like obstacles) ---
+        # Compute pairwise distances on the proposed new positions
+        agent_collision_dist = 2.0 * self.agent_radius  # or tune separately
+        # We will detect collisions and mark both agents as crashed and revert them
+        for i in range(self.n):
+            for j in range(i + 1, self.n):
+                # Skip already crashed or already finished agents (they shouldn't move)
+                if (self.crashed[i] or self.crashed[j] or self.finished[i] or self.finished[j]):
+                    continue
+                d = np.linalg.norm(new_pos[i] - new_pos[j])
+                if d < agent_collision_dist:
+                    # Mark both as crashed
+                    self.crashed[i] = True
+                    self.crashed[j] = True
+                    # Stop velocities and revert positions so they appear to stop before collision
+                    self.vel[i] = 0.0
+                    self.vel[j] = 0.0
+                    new_pos[i] = self.pos[i]
+                    new_pos[j] = self.pos[j]
+
+        # update positions clipped to world
         self.pos = np.clip(new_pos, 0.0, self.world_size)
 
-        # Check completion
+        # Check for reaching goal
         dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
         newly_finished = (dist_to_goal < self.goal_threshold) & (~self.finished) & (~self.crashed)
         self.finished = self.finished | newly_finished
+
+        # detect newly crashed
         newly_crashed = (~old_crashed) & self.crashed
 
         self.t += 1
@@ -119,13 +214,13 @@ class FlockingEnv:
         obs = self._get_obs()
         per_agent_done = (self.finished | self.crashed).astype(np.float32)
 
-        # Return useful info: per-agent done and newly flags for training logs
         info = {
             'per_agent_done': per_agent_done,
             'newly_finished': newly_finished.astype(np.float32),
             'newly_crashed': newly_crashed.astype(np.float32)
         }
         return obs, rewards, done, info
+
 
     def _get_obs(self):
         obs = []
@@ -166,64 +261,104 @@ class FlockingEnv:
 
     def _compute_rewards(self, a, prev_dist_to_goal, newly_finished, newly_crashed):
         """
-        Reward composition:
-          - delta-distance shaping (dense)
-          - per-step small penalty proportional to distance
-          - one-time success / crash rewards
-          - small continuing penalty while crashed
-          - agent-agent flocking reward (cohesion/separation band)
-          - agent-agent collision penalty (hard)
-          - control cost
+        Updated reward that treats agent-agent proximity as a soft penalty (pre-crash)
+        and strongly penalizes one-time crashes (including agent-agent crashes).
         """
         rewards = np.zeros(self.n, dtype=np.float32)
-        # delta-distance shaping
+
+        # ---------- 1) Dense progress shaping ----------
         dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
         delta = prev_dist_to_goal - dist_to_goal
-        rewards += (delta * 20.0)  # tuneable
+        rewards += (delta * 20.0)               # move closer -> positive
+        rewards -= dist_to_goal * 0.02          # small per-step distance penalty
 
-        # small per-step distance penalty to encourage progress
-        rewards -= dist_to_goal * 0.02
+        # ---------- 2) One-time success / crash ----------
+        newly_finished = np.asarray(newly_finished, dtype=bool)
+        newly_crashed = np.asarray(newly_crashed, dtype=bool)
+        rewards[newly_finished] += 50.0
 
-        # success/crash one-time rewards
-        rewards[newly_finished == 1] += 50.0
-        rewards[newly_crashed == 1] += -80.0
-        rewards[self.crashed] += -1.0  # small continuing penalty if crashed
+        # Make crash penalty stronger now that agent-agent collisions exist
+        newly_crashed_penalty = -100.0
+        rewards[newly_crashed] += newly_crashed_penalty
 
-        # Flocking reward: encourage each agent to keep a desired distance band from neighbors
-        # desired inter-agent distance (in world units)
+        # small continuing penalty if currently crashed (discourage staying dead)
+        rewards[self.crashed] += -0.5
+
+        # ---------- 3) Pairwise agent proximity penalties (dense, pre-crash) ----------
+        # Compute pairwise distances matrix
+        pos = self.pos
+        n = self.n
+        pdist = np.zeros((n, n), dtype=np.float32)
+        for i in range(n):
+            for j in range(i+1, n):
+                d = np.linalg.norm(pos[i] - pos[j])
+                pdist[i, j] = d
+                pdist[j, i] = d
+
+        # Parameters (tunable)
+        agent_collision_dist = 2.0 * self.agent_radius        # crash threshold used in step()
+        safe_margin = agent_collision_dist * 1.6              # inside this margin => strong proximity penalty
+        soft_margin = agent_collision_dist * 3.0              # beyond this considered "safe" for proximity
+
+        # For each agent, compute a proximity penalty that grows as they approach < safe_margin
+        for i in range(n):
+            if self.crashed[i] or self.finished[i]:
+                continue
+            # consider only other active agents (or you may include finished/crashed depending on desired behavior)
+            other_indices = [j for j in range(n) if j != i]
+            prox_pen = 0.0
+            for j in other_indices:
+                d = pdist[i, j]
+                # If inside immediate danger zone (between collision and safe_margin), penalty is strong
+                if d < safe_margin:
+                    # scaled penalty: stronger the closer they are
+                    prox_pen += max(0.0, (safe_margin - d) / (safe_margin - (agent_collision_dist + 1e-6)))
+                # Gentle penalty for being somewhat far but beyond soft_margin? (optional)
+                elif d > soft_margin:
+                    # small negative to encourage cohesion (but weak)
+                    prox_pen -= 0.01 * (d - soft_margin)
+            # scale per-agent prox penalty
+            rewards[i] += -3.0 * prox_pen   # tune multiplier; here -3 per unit of normalized proximity
+
+        # ---------- 4) Flocking (cohesion/separation) but safety-aware ----------
+        # desired band (world units)
         desired = 0.8
-        tol = 0.45  # half-bandwidth: so desired band = [desired - tol, desired + tol]
+        tol = 0.45
         min_band = max(0.1, desired - tol)
         max_band = desired + tol
 
-        # compute pairwise distances
-        for i in range(self.n):
-            # distances to other agents
-            others = [j for j in range(self.n) if j != i]
+        for i in range(n):
+            if self.crashed[i] or self.finished[i]:
+                continue
+            others = [j for j in range(n) if j != i]
             if not others:
                 continue
-            dists = np.array([np.linalg.norm(self.pos[i] - self.pos[j]) for j in others])
+            dists = np.array([pdist[i, j] for j in others])
             mean_dist = np.mean(dists)
-            # if within desired band => small positive reward
-            if (mean_dist >= min_band) and (mean_dist <= max_band):
-                rewards[i] += 1.0  # encourage staying in formation
+            # Do not reward cohesion if there are any dangerously close neighbors
+            if np.any(dists < (agent_collision_dist * 1.05)):
+                # if dangerously close, impose extra penalty (handled partly by prox_pen)
+                rewards[i] -= 1.5
             else:
-                # if too close, penalize strongly (risk collisions)
-                if mean_dist < min_band:
-                    rewards[i] -= 2.0 * (min_band - mean_dist)  # stronger on being too close
+                # reward only if within safe desired band
+                if (mean_dist >= min_band) and (mean_dist <= max_band):
+                    rewards[i] += 0.8   # smaller than before to avoid overpowering goal progress
                 else:
-                    # slightly penalize being too far (to encourage cohesion)
-                    rewards[i] -= 0.3 * (mean_dist - max_band)
+                    if mean_dist < min_band:
+                        rewards[i] -= 1.0 * (min_band - mean_dist)
+                    else:
+                        rewards[i] -= 0.2 * (mean_dist - max_band)
 
-        # Agent-agent collision penalty (hard)
-        min_dist_collision = 0.2
-        for i in range(self.n):
-            for j in range(i + 1, self.n):
-                if np.linalg.norm(self.pos[i] - self.pos[j]) < min_dist_collision:
-                    rewards[i] -= 4.0
-                    rewards[j] -= 4.0
+        # ---------- 5) Hard collision penalty (redundant with newly_crashed but keeps consistency) ----------
+        min_dist_collision = agent_collision_dist * 0.95
+        for i in range(n):
+            for j in range(i + 1, n):
+                if pdist[i, j] < min_dist_collision:
+                    # this should usually coincide with newly_crashed detection
+                    rewards[i] -= 8.0
+                    rewards[j] -= 8.0
 
-        # control cost
+        # ---------- 6) Control cost ----------
         ctrl_cost = -0.01 * np.sum(a**2, axis=1)
         rewards += ctrl_cost
 
@@ -390,7 +525,7 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs)
 
     # uncomment below line to test the algo on fixed obstacles on which training done
-    env.load_map("fixed_map.npz")
+    # env.load_map("fixed_map.npz")
     obs = env.reset()
     
     obs_dim = obs.shape[1]
@@ -468,8 +603,8 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 5
-    n_obstacles = 4
+    n_agents = 3
+    n_obstacles = 6
     neighbor_obs = 2
 
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs,
@@ -592,7 +727,7 @@ if __name__ == "__main__":
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)
+        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=5)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)
+        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=5)
