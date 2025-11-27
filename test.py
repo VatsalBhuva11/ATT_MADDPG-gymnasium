@@ -30,17 +30,13 @@ class FlockingEnv:
         self.goal_threshold = 1.0
         self.obstacle_radius = 0.8
         self.max_speed = max_speed
-
-        # Save map if requested (for reproducible visualization/testing)
         self.save_map_path = save_map_path
 
-        # --- Generate Fixed Map (Goal & Obstacles) ONCE ---
+        # Generate fixed map once
         self.goal = np.array([self.world_size * 0.85, self.world_size * 0.85], dtype=np.float32)
-
         self.obstacles = []
         attempts = 0
         start_zone_center = np.array([self.world_size * 0.15, self.world_size * 0.15])
-
         while len(self.obstacles) < self.n_obstacles and attempts < 5000:
             attempts += 1
             obs_pos = np.random.rand(2) * (self.world_size * 0.8) + (self.world_size * 0.1)
@@ -50,11 +46,9 @@ class FlockingEnv:
                 if all(np.linalg.norm(obs_pos - o) > (1.8 + 0.1) for o in self.obstacles):
                     self.obstacles.append(obs_pos)
         self.obstacles = np.array(self.obstacles, dtype=np.float32)
-
         if self.save_map_path is not None:
             np.savez(self.save_map_path, goal=self.goal, obstacles=self.obstacles)
 
-        # dynamic variables
         self.reset()
 
     def load_map(self, mapfile):
@@ -63,105 +57,83 @@ class FlockingEnv:
         self.obstacles = d['obstacles']
 
     def reset(self):
-        # Agents start in small region near bottom-left (scaled by world_size).
-        # Use reproducible small randomization centered at 0.15*world_size
         center = np.array([self.world_size * 0.15, self.world_size * 0.15])
         spread = self.world_size * 0.08
         self.pos = center + (np.random.rand(self.n, 2) - 0.5) * spread
         self.vel = (np.random.rand(self.n, 2) - 0.5) * (self.max_speed * 0.2)
-
         self.finished = np.zeros(self.n, dtype=bool)
         self.crashed = np.zeros(self.n, dtype=bool)
-
-        # track previous distances for delta shaping
         self.prev_dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
-
         self.t = 0
         return self._get_obs()
 
     def step(self, actions):
-        # Always define clipped actions (fix bug when all inactive)
+        # ALWAYS clip actions (fix bug)
         a = np.clip(actions, -1.0, 1.0)
 
-        # Active mask: only agents NOT finished and NOT crashed act
         active_mask = ~(self.finished | self.crashed)
         a = a.copy()
         a[~active_mask] = 0.0
 
-        # store previous state to compute delta rewards
         prev_pos = self.pos.copy()
         prev_dist_to_goal = np.linalg.norm(prev_pos - self.goal, axis=1)
-
-        # Keep old crashed to detect newly_crashed in this step
         old_crashed = self.crashed.copy()
         old_finished = self.finished.copy()
 
-        # Dynamics integration for active agents
+        # Dynamics
         if np.any(active_mask):
-            # update velocities (simple acceleration model)
             self.vel += a * self.dt
-
-            # limit speed
             speed = np.linalg.norm(self.vel, axis=1, keepdims=True)
             speed_clip = np.clip(speed, 0, self.max_speed)
             self.vel = self.vel * (speed_clip / (1e-9 + speed))
-
-            # hard stop inactive
             self.vel[~active_mask] = 0.0
-
-            # update positions
             new_pos = self.pos + self.vel * self.dt
         else:
             new_pos = self.pos.copy()
 
-        # --- Crash check against obstacles (and optionally walls) ---
+        # Crash check with obstacles
         if len(self.obstacles) > 0:
             for i in range(self.n):
                 if not active_mask[i]:
                     continue
                 dists = np.linalg.norm(self.obstacles - new_pos[i], axis=1)
-                # collision if distance less than obstacle radius + small margin
                 if np.any(dists < (self.obstacle_radius + 0.05)):
                     self.crashed[i] = True
                     self.vel[i] = 0.0
-                    # do not update position into obstacle (simulate stopping short)
-                    new_pos[i] = self.pos[i]
+                    new_pos[i] = self.pos[i]  # stop before entering obstacle
 
-        # update positions (clipped to world)
         self.pos = np.clip(new_pos, 0.0, self.world_size)
 
-        # Check for reaching goal
+        # Check completion
         dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
         newly_finished = (dist_to_goal < self.goal_threshold) & (~self.finished) & (~self.crashed)
         self.finished = self.finished | newly_finished
-
-        # detect newly crashed
         newly_crashed = (~old_crashed) & self.crashed
 
-        # update timestep
         self.t += 1
         done = (self.t >= self.max_steps) or np.all(self.finished | self.crashed)
 
-        # compute rewards: pass in clipped `a`, prev distances, newly flags
+        # Compute rewards (pass prev distances and newly flags)
         rewards = self._compute_rewards(a, prev_dist_to_goal, newly_finished, newly_crashed)
 
         obs = self._get_obs()
-
-        # per-agent done flags for replay (useful for agent-specific bootstrapping)
         per_agent_done = (self.finished | self.crashed).astype(np.float32)
 
-        return obs, rewards, done, {'per_agent_done': per_agent_done}
+        # Return useful info: per-agent done and newly flags for training logs
+        info = {
+            'per_agent_done': per_agent_done,
+            'newly_finished': newly_finished.astype(np.float32),
+            'newly_crashed': newly_crashed.astype(np.float32)
+        }
+        return obs, rewards, done, info
 
     def _get_obs(self):
-        # Build per-agent observation and normalize positions/velocities
         obs = []
         for i in range(self.n):
-            # own position (relative to world, normalized), own vel (normalized)
             own_pos = (self.pos[i] / self.world_size).astype(np.float32)
             own_vel = (self.vel[i] / self.max_speed).astype(np.float32)
             rel_goal = ((self.goal - self.pos[i]) / self.world_size).astype(np.float32)
 
-            # neighbors: sorted by real-world dist
             dists = np.linalg.norm(self.pos - self.pos[i], axis=1)
             idx = np.argsort(dists)
             valid_neighbors = idx[1:1 + self.neighbor_obs]
@@ -173,7 +145,6 @@ class FlockingEnv:
             while len(neighbors) < self.neighbor_obs:
                 neighbors.append(np.zeros(4, dtype=np.float32))
 
-            # obstacles: nearest N, positions relative to agent and normalized
             if len(self.obstacles) > 0:
                 obs_dists = np.linalg.norm(self.obstacles - self.pos[i], axis=1)
                 obs_idx = np.argsort(obs_dists)
@@ -195,40 +166,64 @@ class FlockingEnv:
 
     def _compute_rewards(self, a, prev_dist_to_goal, newly_finished, newly_crashed):
         """
-        rewards:
-          - delta distance shaping: +C * (prev_dist - new_dist)  (dense)
-          - one-time big positive for newly_finished
-          - one-time big negative for newly_crashed
-          - small penalty per step proportional to distance (encourages move)
-          - inter-agent collision penalty
+        Reward composition:
+          - delta-distance shaping (dense)
+          - per-step small penalty proportional to distance
+          - one-time success / crash rewards
+          - small continuing penalty while crashed
+          - agent-agent flocking reward (cohesion/separation band)
+          - agent-agent collision penalty (hard)
           - control cost
         """
         rewards = np.zeros(self.n, dtype=np.float32)
-
-        # Distance-based shaping (delta)
+        # delta-distance shaping
         dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
-        delta = prev_dist_to_goal - dist_to_goal  # positive if agent moved closer
-        rewards += (delta * 20.0)  # scale; tune as needed
+        delta = prev_dist_to_goal - dist_to_goal
+        rewards += (delta * 20.0)  # tuneable
 
-        # Small per-step penalty proportional to distance (encourages being closer)
+        # small per-step distance penalty to encourage progress
         rewards -= dist_to_goal * 0.02
 
-        # One-time success / crash rewards (strong)
-        rewards[newly_finished] += 50.0
-        rewards[newly_crashed] += -80.0
+        # success/crash one-time rewards
+        rewards[newly_finished == 1] += 50.0
+        rewards[newly_crashed == 1] += -80.0
+        rewards[self.crashed] += -1.0  # small continuing penalty if crashed
 
-        # If currently crashed, give a fixed negative (discourage being dead)
-        rewards[self.crashed] += -1.0  # small continuing penalty if desired
+        # Flocking reward: encourage each agent to keep a desired distance band from neighbors
+        # desired inter-agent distance (in world units)
+        desired = 0.8
+        tol = 0.45  # half-bandwidth: so desired band = [desired - tol, desired + tol]
+        min_band = max(0.1, desired - tol)
+        max_band = desired + tol
 
-        # Agent-agent collisions (one-time - scaled)
-        min_dist = 0.25 * (self.world_size / 10.0)  # scaled by world size (here world_size=10)
+        # compute pairwise distances
         for i in range(self.n):
-            for j in range(i+1, self.n):
-                if np.linalg.norm(self.pos[i] - self.pos[j]) < min_dist:
-                    rewards[i] -= 2.0
-                    rewards[j] -= 2.0
+            # distances to other agents
+            others = [j for j in range(self.n) if j != i]
+            if not others:
+                continue
+            dists = np.array([np.linalg.norm(self.pos[i] - self.pos[j]) for j in others])
+            mean_dist = np.mean(dists)
+            # if within desired band => small positive reward
+            if (mean_dist >= min_band) and (mean_dist <= max_band):
+                rewards[i] += 1.0  # encourage staying in formation
+            else:
+                # if too close, penalize strongly (risk collisions)
+                if mean_dist < min_band:
+                    rewards[i] -= 2.0 * (min_band - mean_dist)  # stronger on being too close
+                else:
+                    # slightly penalize being too far (to encourage cohesion)
+                    rewards[i] -= 0.3 * (mean_dist - max_band)
 
-        # Control cost (small)
+        # Agent-agent collision penalty (hard)
+        min_dist_collision = 0.2
+        for i in range(self.n):
+            for j in range(i + 1, self.n):
+                if np.linalg.norm(self.pos[i] - self.pos[j]) < min_dist_collision:
+                    rewards[i] -= 4.0
+                    rewards[j] -= 4.0
+
+        # control cost
         ctrl_cost = -0.01 * np.sum(a**2, axis=1)
         rewards += ctrl_cost
 
@@ -393,6 +388,9 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
     # If you want to test on the EXACT same map, you'd need to save/load obstacle coords.
     
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs)
+
+    # uncomment below line to test the algo on fixed obstacles on which training done
+    env.load_map("fixed_map.npz")
     obs = env.reset()
     
     obs_dim = obs.shape[1]
@@ -470,15 +468,13 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 3
-    n_obstacles = 3
+    n_agents = 5
+    n_obstacles = 4
     neighbor_obs = 2
 
-    # Init Env (Generates fixed obstacles)
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs,
                       max_speed=1.0, seed=None, save_map_path=mapfile)
 
-    # Save the FIXED map image
     save_environment_snapshot(env, "initial_layout.png")
 
     obs0 = env.reset()
@@ -487,56 +483,116 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     print(f"State Dim: {obs_dim} (includes normalized obstacle info)")
 
     trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs, K=4, critic_lr=1e-3)
-    buffer = ReplayBuffer(100000)
+    buffer = ReplayBuffer(200000)
 
-    episodes = 4000
+    episodes = 3000
     batch_size = 128
-    warmup_steps = 5000  # don't start learning until some experience collected
+    warmup_steps = 2000
     total_steps = 0
 
-    # Training stats
+    # Logging lists for plotting
+    episode_rewards = []
+    episode_mean_agent_rewards = []
+    episode_finished_counts = []
+    episode_crashed_counts = []
+    episode_avg_dist_to_goal = []
+    episode_lengths = []
+
     for ep in range(episodes):
         obs = env.reset()
         ep_reward = 0.0
-        ep_success = 0
-        ep_crash = 0
+        ep_agent_rewards = np.zeros(n_agents, dtype=np.float32)
+        ep_newly_finished = 0
+        ep_newly_crashed = 0
 
         for t in range(env.max_steps):
             noise = max(0.05, 0.5 * (1 - ep / episodes))
             actions = trainer.select_actions(obs, noise_scale=noise)
+
             next_obs, rewards, done, info = env.step(actions)
-
-            # Use per-agent done flags (more correct than repeating episode-done)
             per_agent_done = info.get('per_agent_done', (env.finished | env.crashed).astype(np.float32))
+            newly_finished = info.get('newly_finished', np.zeros(n_agents, dtype=np.float32))
+            newly_crashed = info.get('newly_crashed', np.zeros(n_agents, dtype=np.float32))
 
-            # store transition: obs shape (n_agents, obs_dim), actions (n_agents, action_dim), rewards (n_agents,)
+            # push transition using per-agent dones
             buffer.push(obs.copy(), actions.copy(), rewards.copy(), next_obs.copy(), per_agent_done.copy())
 
             total_steps += 1
+            # update after warmup
             if len(buffer) > batch_size and total_steps > warmup_steps:
                 trainer.update(buffer, batch_size=batch_size)
 
             obs = next_obs
             ep_reward += np.sum(rewards)
-            ep_success += np.sum(env.finished & ~old_false_mask()) if False else 0  # placeholder; we log after episode
+            ep_agent_rewards += rewards
+            ep_newly_finished += int(np.sum(newly_finished))
+            ep_newly_crashed += int(np.sum(newly_crashed))
+
             if done:
+                episode_lengths.append(t + 1)
                 break
+        else:
+            # if loop not broken by done, append full length
+            episode_lengths.append(env.max_steps)
 
-        # After episode: compute final statistics
-        ep_finished = np.sum(env.finished)
-        ep_crashed = np.sum(env.crashed)
-        if (ep + 1) % 10 == 0:
-            print(f"Ep {ep+1}/{episodes} | Reward {ep_reward:.1f} | Finished {ep_finished}/{n_agents} | Crashed {ep_crashed}/{n_agents} | Buffer {len(buffer)}")
+        ep_finished = int(np.sum(env.finished))
+        ep_crashed = int(np.sum(env.crashed))
+        mean_agent_reward = float(np.mean(ep_agent_rewards))
+        avg_dist_goal = float(np.mean(np.linalg.norm(env.pos - env.goal, axis=1)))
 
+        episode_rewards.append(ep_reward)
+        episode_mean_agent_rewards.append(mean_agent_reward)
+        episode_finished_counts.append(ep_finished)
+        episode_crashed_counts.append(ep_crashed)
+        episode_avg_dist_to_goal.append(avg_dist_goal)
+
+        # Print more informative logging every episode or every N episodes
+        if (ep + 1) % 10 == 0:  # print every ep (change to 10 if you want less verbose)
+            print(f"Ep {ep+1}/{episodes} | TotalR {ep_reward:8.2f} | MeanAgentR {mean_agent_reward:6.3f} | "
+                  f"Finished {ep_finished}/{n_agents} | Crashed {ep_crashed}/{n_agents} | "
+                  f"NewFin {ep_newly_finished} | NewCrash {ep_newly_crashed} | AvgDist {avg_dist_goal:5.2f} | Len {episode_lengths[-1]} | Buf {len(buffer)}")
+
+        # periodic checkpointing + quick eval
+        if (ep + 1) % 50 == 0:
+            trainer.save_checkpoint(save_path)
+            print(f"Saved checkpoint at episode {ep+1}")
+
+    # final save
     trainer.save_checkpoint(save_path)
+    print("Training finished. Saved final model.")
+
+    # Plot and save reward curve and some stats
+    plt.figure(figsize=(8, 4))
+    plt.plot(episode_rewards, label='episode total reward')
+    plt.plot(np.convolve(episode_rewards, np.ones(50)/50, mode='same'), label='50-ep MA')
+    plt.xlabel('Episode')
+    plt.ylabel('Total Reward')
+    plt.title('Training Rewards')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig('training_rewards.png')
+    plt.close()
+    print("Saved training reward curve to training_rewards.png")
+
+    # Save a small CSV-like text summary for quick inspection
+    import csv
+    with open('training_summary.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['episode', 'total_reward', 'mean_agent_reward', 'finished', 'crashed', 'avg_dist', 'length'])
+        for i in range(len(episode_rewards)):
+            writer.writerow([i+1, episode_rewards[i], episode_mean_agent_rewards[i],
+                             episode_finished_counts[i], episode_crashed_counts[i],
+                             episode_avg_dist_to_goal[i], episode_lengths[i]])
+    print("Saved training_summary.csv")
 
 if __name__ == "__main__":
-    MODE = "train" 
+    MODE = "test" 
     MODEL_FILE = "att_maddpg_obstacles.pth"
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=3)
+        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=3)
+        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)

@@ -1,0 +1,489 @@
+--> Saved fixed environment layout to 'initial_layout.png'
+State Dim: 18 (includes normalized obstacle info)
+Ep 10/4000 | TotalR  -791.07 | MeanAgentR -263.689 | Finished 0/3 | Crashed 0/3 | NewFin 0 | NewCrash 0 | AvgDist  8.91 | Len 200 | Buf 2000
+Ep 20/4000 | TotalR  -554.66 | MeanAgentR -184.887 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  3.98 | Len 200 | Buf 3872
+Ep 30/4000 | TotalR  -679.20 | MeanAgentR -226.399 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  5.50 | Len 200 | Buf 5358
+Ep 40/4000 | TotalR  -658.65 | MeanAgentR -219.551 | Finished 0/3 | Crashed 1/3 | NewFin 0 | NewCrash 1 | AvgDist  2.56 | Len 200 | Buf 7103
+Ep 50/4000 | TotalR   279.75 | MeanAgentR 93.251 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.18 | Len 92 | Buf 8385
+Saved checkpoint at episode 50
+Ep 60/4000 | TotalR   179.37 | MeanAgentR 59.790 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.45 | Len 83 | Buf 9648
+Ep 70/4000 | TotalR   139.01 | MeanAgentR 46.338 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.13 | Len 90 | Buf 10737
+Ep 80/4000 | TotalR   -13.48 | MeanAgentR -4.494 | Finished 0/3 | Crashed 1/3 | NewFin 0 | NewCrash 1 | AvgDist  4.63 | Len 200 | Buf 12163
+Ep 90/4000 | TotalR  -203.75 | MeanAgentR -67.915 | Finished 0/3 | Crashed 1/3 | NewFin 0 | NewCrash 1 | AvgDist  4.76 | Len 200 | Buf 13634
+Ep 100/4000 | TotalR   159.50 | MeanAgentR 53.166 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.51 | Len 89 | Buf 14832
+Saved checkpoint at episode 100
+Ep 110/4000 | TotalR   -59.41 | MeanAgentR -19.805 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  3.53 | Len 200 | Buf 16079
+Ep 120/4000 | TotalR   153.88 | MeanAgentR 51.293 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.47 | Len 74 | Buf 17390
+Ep 130/4000 | TotalR   334.45 | MeanAgentR 111.483 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.38 | Len 75 | Buf 18178
+Ep 140/4000 | TotalR  -312.27 | MeanAgentR -104.091 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.53 | Len 78 | Buf 19931
+Ep 150/4000 | TotalR    27.28 | MeanAgentR  9.094 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  4.15 | Len 81 | Buf 21812
+Saved checkpoint at episode 150
+Ep 160/4000 | TotalR  -390.15 | MeanAgentR -130.051 | Finished 0/3 | Crashed 0/3 | NewFin 0 | NewCrash 0 | AvgDist  3.99 | Len 200 | Buf 23679
+Ep 170/4000 | TotalR   419.49 | MeanAgentR 139.830 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  2.50 | Len 200 | Buf 25587
+Ep 180/4000 | TotalR   470.76 | MeanAgentR 156.921 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 153 | Buf 27297
+Ep 190/4000 | TotalR   162.60 | MeanAgentR 54.202 | Finished 0/3 | Crashed 1/3 | NewFin 0 | NewCrash 1 | AvgDist  2.73 | Len 200 | Buf 29167
+Ep 200/4000 | TotalR   101.00 | MeanAgentR 33.667 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.20 | Len 157 | Buf 30902
+Saved checkpoint at episode 200
+Ep 210/4000 | TotalR    64.88 | MeanAgentR 21.628 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.80 | Len 125 | Buf 32423
+Ep 220/4000 | TotalR  -417.21 | MeanAgentR -139.069 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  3.69 | Len 200 | Buf 33982
+Ep 230/4000 | TotalR  -829.75 | MeanAgentR -276.583 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  6.12 | Len 200 | Buf 35766
+Ep 240/4000 | TotalR   -48.70 | MeanAgentR -16.233 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  4.56 | Len 110 | Buf 37390
+Ep 250/4000 | TotalR  -112.32 | MeanAgentR -37.441 | Finished 0/3 | Crashed 1/3 | NewFin 0 | NewCrash 1 | AvgDist  3.05 | Len 200 | Buf 39092
+Saved checkpoint at episode 250
+Ep 260/4000 | TotalR   412.80 | MeanAgentR 137.599 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.78 | Len 134 | Buf 40599
+Ep 270/4000 | TotalR   360.73 | MeanAgentR 120.244 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.64 | Len 127 | Buf 42211
+Ep 280/4000 | TotalR   187.43 | MeanAgentR 62.478 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.43 | Len 108 | Buf 43834
+Ep 290/4000 | TotalR   145.70 | MeanAgentR 48.568 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 114 | Buf 45587
+Ep 300/4000 | TotalR   285.65 | MeanAgentR 95.216 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.71 | Len 122 | Buf 46906
+Saved checkpoint at episode 300
+Ep 310/4000 | TotalR   108.81 | MeanAgentR 36.269 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.45 | Len 150 | Buf 48828
+Ep 320/4000 | TotalR   313.34 | MeanAgentR 104.448 | Finished 1/3 | Crashed 0/3 | NewFin 1 | NewCrash 0 | AvgDist  1.67 | Len 200 | Buf 50653
+Ep 330/4000 | TotalR   475.72 | MeanAgentR 158.573 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.99 | Len 200 | Buf 52435
+Ep 340/4000 | TotalR   603.28 | MeanAgentR 201.092 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.66 | Len 200 | Buf 54215
+Ep 350/4000 | TotalR    47.12 | MeanAgentR 15.708 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  4.34 | Len 139 | Buf 55797
+Saved checkpoint at episode 350
+Ep 360/4000 | TotalR  -155.48 | MeanAgentR -51.827 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  4.30 | Len 200 | Buf 57231
+Ep 370/4000 | TotalR   299.21 | MeanAgentR 99.738 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.16 | Len 200 | Buf 58880
+Ep 380/4000 | TotalR   728.26 | MeanAgentR 242.752 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 108 | Buf 60615
+Ep 390/4000 | TotalR    44.46 | MeanAgentR 14.820 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.46 | Len 108 | Buf 62166
+Ep 400/4000 | TotalR   114.61 | MeanAgentR 38.204 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.99 | Len 131 | Buf 63625
+Saved checkpoint at episode 400
+Ep 410/4000 | TotalR   854.21 | MeanAgentR 284.736 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 135 | Buf 65083
+Ep 420/4000 | TotalR   754.53 | MeanAgentR 251.511 | Finished 1/3 | Crashed 0/3 | NewFin 1 | NewCrash 0 | AvgDist  1.71 | Len 200 | Buf 66452
+Ep 430/4000 | TotalR   645.20 | MeanAgentR 215.065 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.83 | Len 114 | Buf 68366
+Ep 440/4000 | TotalR   -25.47 | MeanAgentR -8.488 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.13 | Len 200 | Buf 69628
+Ep 450/4000 | TotalR   217.22 | MeanAgentR 72.407 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.77 | Len 170 | Buf 71083
+Saved checkpoint at episode 450
+Ep 460/4000 | TotalR  -293.39 | MeanAgentR -97.796 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 139 | Buf 72347
+Ep 470/4000 | TotalR   525.51 | MeanAgentR 175.170 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.77 | Len 116 | Buf 73771
+Ep 480/4000 | TotalR   172.56 | MeanAgentR 57.520 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.77 | Len 112 | Buf 75089
+Ep 490/4000 | TotalR   164.51 | MeanAgentR 54.837 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.39 | Len 103 | Buf 76541
+Ep 500/4000 | TotalR   791.37 | MeanAgentR 263.791 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 111 | Buf 77670
+Saved checkpoint at episode 500
+Ep 510/4000 | TotalR   388.75 | MeanAgentR 129.584 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.65 | Len 112 | Buf 78850
+Ep 520/4000 | TotalR   130.26 | MeanAgentR 43.420 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 79914
+Ep 530/4000 | TotalR   423.57 | MeanAgentR 141.190 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.53 | Len 111 | Buf 81220
+Ep 540/4000 | TotalR   751.07 | MeanAgentR 250.358 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 106 | Buf 82422
+Ep 550/4000 | TotalR   233.77 | MeanAgentR 77.924 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.34 | Len 103 | Buf 83634
+Saved checkpoint at episode 550
+Ep 560/4000 | TotalR   591.15 | MeanAgentR 197.049 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 108 | Buf 84717
+Ep 570/4000 | TotalR   849.00 | MeanAgentR 283.001 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 113 | Buf 85940
+Ep 580/4000 | TotalR   928.56 | MeanAgentR 309.519 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 112 | Buf 87163
+Ep 590/4000 | TotalR   164.17 | MeanAgentR 54.724 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.22 | Len 200 | Buf 88450
+Ep 600/4000 | TotalR   414.81 | MeanAgentR 138.269 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.59 | Len 108 | Buf 89764
+Saved checkpoint at episode 600
+Ep 610/4000 | TotalR   543.53 | MeanAgentR 181.178 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.81 | Len 105 | Buf 90904
+Ep 620/4000 | TotalR   131.87 | MeanAgentR 43.958 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 108 | Buf 92093
+Ep 630/4000 | TotalR   436.25 | MeanAgentR 145.418 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.33 | Len 100 | Buf 93184
+Ep 640/4000 | TotalR   267.16 | MeanAgentR 89.055 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 104 | Buf 94381
+Ep 650/4000 | TotalR   740.95 | MeanAgentR 246.982 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 114 | Buf 95681
+Saved checkpoint at episode 650
+Ep 660/4000 | TotalR   573.13 | MeanAgentR 191.043 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 124 | Buf 96783
+Ep 670/4000 | TotalR   374.10 | MeanAgentR 124.700 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.49 | Len 103 | Buf 97831
+Ep 680/4000 | TotalR   888.64 | MeanAgentR 296.213 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 109 | Buf 98939
+Ep 690/4000 | TotalR   748.64 | MeanAgentR 249.548 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 115 | Buf 100061
+Ep 700/4000 | TotalR   387.41 | MeanAgentR 129.136 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.21 | Len 200 | Buf 101267
+Saved checkpoint at episode 700
+Ep 710/4000 | TotalR   573.04 | MeanAgentR 191.014 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.46 | Len 200 | Buf 102839
+Ep 720/4000 | TotalR   257.41 | MeanAgentR 85.803 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.82 | Len 104 | Buf 104125
+Ep 730/4000 | TotalR   542.01 | MeanAgentR 180.669 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.82 | Len 120 | Buf 105268
+Ep 740/4000 | TotalR   493.34 | MeanAgentR 164.445 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.81 | Len 101 | Buf 106377
+Ep 750/4000 | TotalR   739.65 | MeanAgentR 246.550 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 113 | Buf 107440
+Saved checkpoint at episode 750
+Ep 760/4000 | TotalR   815.01 | MeanAgentR 271.670 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 113 | Buf 108645
+Ep 770/4000 | TotalR   392.95 | MeanAgentR 130.984 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.59 | Len 110 | Buf 109836
+Ep 780/4000 | TotalR   810.87 | MeanAgentR 270.290 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 117 | Buf 111042
+Ep 790/4000 | TotalR   688.82 | MeanAgentR 229.605 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 114 | Buf 112161
+Ep 800/4000 | TotalR   447.99 | MeanAgentR 149.330 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 117 | Buf 113278
+Saved checkpoint at episode 800
+Ep 810/4000 | TotalR   919.09 | MeanAgentR 306.363 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 114404
+Ep 820/4000 | TotalR   392.96 | MeanAgentR 130.986 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 110 | Buf 115466
+Ep 830/4000 | TotalR   777.36 | MeanAgentR 259.119 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 116774
+Ep 840/4000 | TotalR   392.94 | MeanAgentR 130.981 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.78 | Len 120 | Buf 117908
+Ep 850/4000 | TotalR   343.48 | MeanAgentR 114.492 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.51 | Len 147 | Buf 119062
+Saved checkpoint at episode 850
+Ep 860/4000 | TotalR   746.41 | MeanAgentR 248.805 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 121 | Buf 120191
+Ep 870/4000 | TotalR   526.62 | MeanAgentR 175.541 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.81 | Len 121 | Buf 121264
+Ep 880/4000 | TotalR   871.40 | MeanAgentR 290.466 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 113 | Buf 122411
+Ep 890/4000 | TotalR   931.96 | MeanAgentR 310.653 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 108 | Buf 123535
+Ep 900/4000 | TotalR   930.30 | MeanAgentR 310.101 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 115 | Buf 124829
+Saved checkpoint at episode 900
+Ep 910/4000 | TotalR   632.79 | MeanAgentR 210.929 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 118 | Buf 126013
+Ep 920/4000 | TotalR   521.06 | MeanAgentR 173.686 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.70 | Len 138 | Buf 127237
+Ep 930/4000 | TotalR   798.55 | MeanAgentR 266.182 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 108 | Buf 128425
+Ep 940/4000 | TotalR   769.24 | MeanAgentR 256.415 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 111 | Buf 129687
+Ep 950/4000 | TotalR   487.20 | MeanAgentR 162.400 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 104 | Buf 131011
+Saved checkpoint at episode 950
+Ep 960/4000 | TotalR   719.13 | MeanAgentR 239.711 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.42 | Len 127 | Buf 132481
+Ep 970/4000 | TotalR   905.62 | MeanAgentR 301.874 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 123 | Buf 134018
+Ep 980/4000 | TotalR   733.16 | MeanAgentR 244.387 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 104 | Buf 135277
+Ep 990/4000 | TotalR   815.84 | MeanAgentR 271.946 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 107 | Buf 136398
+Ep 1000/4000 | TotalR   919.79 | MeanAgentR 306.598 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 107 | Buf 137599
+Saved checkpoint at episode 1000
+Ep 1010/4000 | TotalR   808.52 | MeanAgentR 269.505 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 113 | Buf 138797
+Ep 1020/4000 | TotalR   907.11 | MeanAgentR 302.371 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 110 | Buf 139972
+Ep 1030/4000 | TotalR   986.82 | MeanAgentR 328.941 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 111 | Buf 141206
+Ep 1040/4000 | TotalR   756.11 | MeanAgentR 252.037 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 115 | Buf 142292
+Ep 1050/4000 | TotalR   220.57 | MeanAgentR 73.524 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.66 | Len 104 | Buf 143565
+Saved checkpoint at episode 1050
+Ep 1060/4000 | TotalR   844.89 | MeanAgentR 281.629 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.47 | Len 200 | Buf 144749
+Ep 1070/4000 | TotalR   498.30 | MeanAgentR 166.100 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.72 | Len 101 | Buf 145772
+Ep 1080/4000 | TotalR   690.64 | MeanAgentR 230.213 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.35 | Len 104 | Buf 147010
+Ep 1090/4000 | TotalR   438.96 | MeanAgentR 146.321 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.59 | Len 106 | Buf 148232
+Ep 1100/4000 | TotalR   942.83 | MeanAgentR 314.278 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 110 | Buf 149426
+Saved checkpoint at episode 1100
+Ep 1110/4000 | TotalR   362.58 | MeanAgentR 120.861 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 103 | Buf 150676
+Ep 1120/4000 | TotalR   175.47 | MeanAgentR 58.490 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.27 | Len 123 | Buf 151742
+Ep 1130/4000 | TotalR   224.16 | MeanAgentR 74.719 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 106 | Buf 153032
+Ep 1140/4000 | TotalR   727.09 | MeanAgentR 242.363 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 111 | Buf 154141
+Ep 1150/4000 | TotalR   861.86 | MeanAgentR 287.286 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 116 | Buf 155231
+Saved checkpoint at episode 1150
+Ep 1160/4000 | TotalR   754.87 | MeanAgentR 251.622 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 108 | Buf 156364
+Ep 1170/4000 | TotalR   825.79 | MeanAgentR 275.264 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 101 | Buf 157452
+Ep 1180/4000 | TotalR   858.14 | MeanAgentR 286.048 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 108 | Buf 158644
+Ep 1190/4000 | TotalR   918.50 | MeanAgentR 306.168 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 159704
+Ep 1200/4000 | TotalR   686.16 | MeanAgentR 228.721 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.69 | Len 111 | Buf 160747
+Saved checkpoint at episode 1200
+Ep 1210/4000 | TotalR   304.13 | MeanAgentR 101.376 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.08 | Len 113 | Buf 161937
+Ep 1220/4000 | TotalR   828.26 | MeanAgentR 276.087 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 112 | Buf 163183
+Ep 1230/4000 | TotalR   703.97 | MeanAgentR 234.655 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 164286
+Ep 1240/4000 | TotalR   574.42 | MeanAgentR 191.475 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.45 | Len 200 | Buf 165734
+Ep 1250/4000 | TotalR   719.39 | MeanAgentR 239.795 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 105 | Buf 166903
+Saved checkpoint at episode 1250
+Ep 1260/4000 | TotalR   251.02 | MeanAgentR 83.673 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.49 | Len 115 | Buf 167983
+Ep 1270/4000 | TotalR   922.99 | MeanAgentR 307.664 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 169071
+Ep 1280/4000 | TotalR   831.30 | MeanAgentR 277.101 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 120 | Buf 170255
+Ep 1290/4000 | TotalR   117.12 | MeanAgentR 39.041 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.41 | Len 200 | Buf 171627
+Ep 1300/4000 | TotalR   310.99 | MeanAgentR 103.664 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.63 | Len 105 | Buf 173532
+Saved checkpoint at episode 1300
+Ep 1310/4000 | TotalR   354.29 | MeanAgentR 118.096 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.05 | Len 156 | Buf 175120
+Ep 1320/4000 | TotalR   839.87 | MeanAgentR 279.955 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 112 | Buf 176360
+Ep 1330/4000 | TotalR   598.62 | MeanAgentR 199.538 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.74 | Len 105 | Buf 177441
+Ep 1340/4000 | TotalR   826.87 | MeanAgentR 275.624 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 110 | Buf 178547
+Ep 1350/4000 | TotalR   610.13 | MeanAgentR 203.377 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.66 | Len 116 | Buf 179841
+Saved checkpoint at episode 1350
+Ep 1360/4000 | TotalR   653.50 | MeanAgentR 217.834 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.70 | Len 105 | Buf 180952
+Ep 1370/4000 | TotalR   533.87 | MeanAgentR 177.956 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 112 | Buf 182045
+Ep 1380/4000 | TotalR   653.52 | MeanAgentR 217.839 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 110 | Buf 183431
+Ep 1390/4000 | TotalR   640.18 | MeanAgentR 213.393 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.64 | Len 107 | Buf 184535
+Ep 1400/4000 | TotalR   665.30 | MeanAgentR 221.766 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.35 | Len 200 | Buf 185951
+Saved checkpoint at episode 1400
+Ep 1410/4000 | TotalR   701.65 | MeanAgentR 233.882 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 113 | Buf 187248
+Ep 1420/4000 | TotalR   387.95 | MeanAgentR 129.315 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.65 | Len 111 | Buf 188328
+Ep 1430/4000 | TotalR   708.82 | MeanAgentR 236.274 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 104 | Buf 189356
+Ep 1440/4000 | TotalR   569.10 | MeanAgentR 189.699 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.81 | Len 106 | Buf 190447
+Ep 1450/4000 | TotalR   356.04 | MeanAgentR 118.680 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.57 | Len 120 | Buf 191743
+Saved checkpoint at episode 1450
+Ep 1460/4000 | TotalR   433.44 | MeanAgentR 144.481 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 115 | Buf 192816
+Ep 1470/4000 | TotalR   771.62 | MeanAgentR 257.206 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 108 | Buf 193934
+Ep 1480/4000 | TotalR   654.53 | MeanAgentR 218.178 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.47 | Len 105 | Buf 195096
+Ep 1490/4000 | TotalR   924.38 | MeanAgentR 308.127 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 106 | Buf 196253
+Ep 1500/4000 | TotalR   963.05 | MeanAgentR 321.017 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 197325
+Saved checkpoint at episode 1500
+Ep 1510/4000 | TotalR   842.53 | MeanAgentR 280.844 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 115 | Buf 198501
+Ep 1520/4000 | TotalR   945.61 | MeanAgentR 315.203 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 109 | Buf 199589
+Ep 1530/4000 | TotalR   816.86 | MeanAgentR 272.286 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 114 | Buf 200000
+Ep 1540/4000 | TotalR   634.22 | MeanAgentR 211.406 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.55 | Len 111 | Buf 200000
+Ep 1550/4000 | TotalR   361.26 | MeanAgentR 120.419 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.66 | Len 109 | Buf 200000
+Saved checkpoint at episode 1550
+Ep 1560/4000 | TotalR   882.48 | MeanAgentR 294.161 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.92 | Len 108 | Buf 200000
+Ep 1570/4000 | TotalR   391.13 | MeanAgentR 130.377 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 109 | Buf 200000
+Ep 1580/4000 | TotalR   792.01 | MeanAgentR 264.003 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 108 | Buf 200000
+Ep 1590/4000 | TotalR   659.39 | MeanAgentR 219.796 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Ep 1600/4000 | TotalR   962.18 | MeanAgentR 320.728 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 113 | Buf 200000
+Saved checkpoint at episode 1600
+Ep 1610/4000 | TotalR   894.22 | MeanAgentR 298.074 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 105 | Buf 200000
+Ep 1620/4000 | TotalR   732.83 | MeanAgentR 244.277 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 107 | Buf 200000
+Ep 1630/4000 | TotalR   116.77 | MeanAgentR 38.922 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 107 | Buf 200000
+Ep 1640/4000 | TotalR   781.29 | MeanAgentR 260.430 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 102 | Buf 200000
+Ep 1650/4000 | TotalR   929.43 | MeanAgentR 309.811 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 109 | Buf 200000
+Saved checkpoint at episode 1650
+Ep 1660/4000 | TotalR   922.60 | MeanAgentR 307.533 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.99 | Len 110 | Buf 200000
+Ep 1670/4000 | TotalR   687.39 | MeanAgentR 229.131 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 104 | Buf 200000
+Ep 1680/4000 | TotalR   538.80 | MeanAgentR 179.600 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 108 | Buf 200000
+Ep 1690/4000 | TotalR   941.80 | MeanAgentR 313.933 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 110 | Buf 200000
+Ep 1700/4000 | TotalR   668.74 | MeanAgentR 222.914 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 112 | Buf 200000
+Saved checkpoint at episode 1700
+Ep 1710/4000 | TotalR  -118.07 | MeanAgentR -39.355 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 173 | Buf 200000
+Ep 1720/4000 | TotalR   878.11 | MeanAgentR 292.702 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 117 | Buf 200000
+Ep 1730/4000 | TotalR   879.60 | MeanAgentR 293.201 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 112 | Buf 200000
+Ep 1740/4000 | TotalR   899.32 | MeanAgentR 299.775 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 134 | Buf 200000
+Ep 1750/4000 | TotalR   955.53 | MeanAgentR 318.511 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.92 | Len 115 | Buf 200000
+Saved checkpoint at episode 1750
+Ep 1760/4000 | TotalR   958.39 | MeanAgentR 319.465 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 115 | Buf 200000
+Ep 1770/4000 | TotalR   766.30 | MeanAgentR 255.433 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 117 | Buf 200000
+Ep 1780/4000 | TotalR   887.95 | MeanAgentR 295.982 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 120 | Buf 200000
+Ep 1790/4000 | TotalR   911.04 | MeanAgentR 303.679 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 113 | Buf 200000
+Ep 1800/4000 | TotalR   626.81 | MeanAgentR 208.936 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 108 | Buf 200000
+Saved checkpoint at episode 1800
+Ep 1810/4000 | TotalR   553.40 | MeanAgentR 184.465 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 106 | Buf 200000
+Ep 1820/4000 | TotalR   825.44 | MeanAgentR 275.148 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Ep 1830/4000 | TotalR   933.33 | MeanAgentR 311.109 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 105 | Buf 200000
+Ep 1840/4000 | TotalR   619.22 | MeanAgentR 206.405 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 105 | Buf 200000
+Ep 1850/4000 | TotalR   884.69 | MeanAgentR 294.898 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 105 | Buf 200000
+Saved checkpoint at episode 1850
+Ep 1860/4000 | TotalR   750.68 | MeanAgentR 250.226 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 200000
+Ep 1870/4000 | TotalR   362.99 | MeanAgentR 120.997 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.29 | Len 100 | Buf 200000
+Ep 1880/4000 | TotalR   807.79 | MeanAgentR 269.264 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 107 | Buf 200000
+Ep 1890/4000 | TotalR   707.71 | MeanAgentR 235.902 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.58 | Len 106 | Buf 200000
+Ep 1900/4000 | TotalR   842.70 | MeanAgentR 280.899 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Saved checkpoint at episode 1900
+Ep 1910/4000 | TotalR   377.41 | MeanAgentR 125.803 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 111 | Buf 200000
+Ep 1920/4000 | TotalR   357.72 | MeanAgentR 119.240 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.19 | Len 200 | Buf 200000
+Ep 1930/4000 | TotalR   954.01 | MeanAgentR 318.004 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 112 | Buf 200000
+Ep 1940/4000 | TotalR   899.90 | MeanAgentR 299.966 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 108 | Buf 200000
+Ep 1950/4000 | TotalR   928.38 | MeanAgentR 309.460 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.99 | Len 113 | Buf 200000
+Saved checkpoint at episode 1950
+Ep 1960/4000 | TotalR   913.87 | MeanAgentR 304.623 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 103 | Buf 200000
+Ep 1970/4000 | TotalR   845.65 | MeanAgentR 281.884 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 200000
+Ep 1980/4000 | TotalR   831.00 | MeanAgentR 277.000 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 111 | Buf 200000
+Ep 1990/4000 | TotalR   458.53 | MeanAgentR 152.844 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.83 | Len 104 | Buf 200000
+Ep 2000/4000 | TotalR   712.47 | MeanAgentR 237.491 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 104 | Buf 200000
+Saved checkpoint at episode 2000
+Ep 2010/4000 | TotalR   675.55 | MeanAgentR 225.182 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 109 | Buf 200000
+Ep 2020/4000 | TotalR   592.12 | MeanAgentR 197.372 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.71 | Len 103 | Buf 200000
+Ep 2030/4000 | TotalR   767.68 | MeanAgentR 255.895 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 200000
+Ep 2040/4000 | TotalR   841.49 | MeanAgentR 280.497 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 101 | Buf 200000
+Ep 2050/4000 | TotalR   683.12 | MeanAgentR 227.706 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 107 | Buf 200000
+Saved checkpoint at episode 2050
+Ep 2060/4000 | TotalR   647.11 | MeanAgentR 215.704 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.77 | Len 108 | Buf 200000
+Ep 2070/4000 | TotalR   956.87 | MeanAgentR 318.958 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 106 | Buf 200000
+Ep 2080/4000 | TotalR   905.90 | MeanAgentR 301.965 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 112 | Buf 200000
+Ep 2090/4000 | TotalR   848.85 | MeanAgentR 282.951 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 111 | Buf 200000
+Ep 2100/4000 | TotalR   694.16 | MeanAgentR 231.388 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 111 | Buf 200000
+Saved checkpoint at episode 2100
+Ep 2110/4000 | TotalR   596.04 | MeanAgentR 198.680 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 108 | Buf 200000
+Ep 2120/4000 | TotalR   382.14 | MeanAgentR 127.379 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  1.94 | Len 200 | Buf 200000
+Ep 2130/4000 | TotalR   653.78 | MeanAgentR 217.928 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 107 | Buf 200000
+Ep 2140/4000 | TotalR   825.70 | MeanAgentR 275.232 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 116 | Buf 200000
+Ep 2150/4000 | TotalR   890.44 | MeanAgentR 296.813 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 200000
+Saved checkpoint at episode 2150
+Ep 2160/4000 | TotalR   504.46 | MeanAgentR 168.154 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.64 | Len 141 | Buf 200000
+Ep 2170/4000 | TotalR   597.46 | MeanAgentR 199.155 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.73 | Len 112 | Buf 200000
+Ep 2180/4000 | TotalR   842.92 | MeanAgentR 280.973 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 107 | Buf 200000
+Ep 2190/4000 | TotalR   621.93 | MeanAgentR 207.309 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 109 | Buf 200000
+Ep 2200/4000 | TotalR   689.52 | MeanAgentR 229.839 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 111 | Buf 200000
+Saved checkpoint at episode 2200
+Ep 2210/4000 | TotalR   761.97 | MeanAgentR 253.989 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 104 | Buf 200000
+Ep 2220/4000 | TotalR   943.96 | MeanAgentR 314.654 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 113 | Buf 200000
+Ep 2230/4000 | TotalR   885.44 | MeanAgentR 295.146 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 108 | Buf 200000
+Ep 2240/4000 | TotalR   726.32 | MeanAgentR 242.105 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 105 | Buf 200000
+Ep 2250/4000 | TotalR   740.14 | MeanAgentR 246.715 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Saved checkpoint at episode 2250
+Ep 2260/4000 | TotalR   886.54 | MeanAgentR 295.514 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 200000
+Ep 2270/4000 | TotalR   960.90 | MeanAgentR 320.301 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 106 | Buf 200000
+Ep 2280/4000 | TotalR   949.48 | MeanAgentR 316.494 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 103 | Buf 200000
+Ep 2290/4000 | TotalR   901.42 | MeanAgentR 300.474 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 200000
+Ep 2300/4000 | TotalR   799.34 | MeanAgentR 266.447 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Saved checkpoint at episode 2300
+Ep 2310/4000 | TotalR   707.37 | MeanAgentR 235.789 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 112 | Buf 200000
+Ep 2320/4000 | TotalR   625.18 | MeanAgentR 208.392 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.82 | Len 114 | Buf 200000
+Ep 2330/4000 | TotalR   634.78 | MeanAgentR 211.593 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.65 | Len 100 | Buf 200000
+Ep 2340/4000 | TotalR   776.64 | MeanAgentR 258.879 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 111 | Buf 200000
+Ep 2350/4000 | TotalR   833.93 | MeanAgentR 277.978 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 114 | Buf 200000
+Saved checkpoint at episode 2350
+Ep 2360/4000 | TotalR   873.62 | MeanAgentR 291.206 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 111 | Buf 200000
+Ep 2370/4000 | TotalR   773.61 | MeanAgentR 257.870 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 112 | Buf 200000
+Ep 2380/4000 | TotalR   918.89 | MeanAgentR 306.298 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 109 | Buf 200000
+Ep 2390/4000 | TotalR   948.74 | MeanAgentR 316.248 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 109 | Buf 200000
+Ep 2400/4000 | TotalR   868.99 | MeanAgentR 289.664 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 115 | Buf 200000
+Saved checkpoint at episode 2400
+Ep 2410/4000 | TotalR   897.60 | MeanAgentR 299.200 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 105 | Buf 200000
+Ep 2420/4000 | TotalR   920.68 | MeanAgentR 306.893 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 116 | Buf 200000
+Ep 2430/4000 | TotalR   871.19 | MeanAgentR 290.396 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 116 | Buf 200000
+Ep 2440/4000 | TotalR   901.20 | MeanAgentR 300.402 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 105 | Buf 200000
+Ep 2450/4000 | TotalR   704.77 | MeanAgentR 234.924 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.57 | Len 108 | Buf 200000
+Saved checkpoint at episode 2450
+Ep 2460/4000 | TotalR   927.21 | MeanAgentR 309.069 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 200000
+Ep 2470/4000 | TotalR   593.76 | MeanAgentR 197.921 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.76 | Len 108 | Buf 200000
+Ep 2480/4000 | TotalR   813.92 | MeanAgentR 271.307 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 200000
+Ep 2490/4000 | TotalR   609.60 | MeanAgentR 203.200 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.68 | Len 112 | Buf 200000
+Ep 2500/4000 | TotalR   907.39 | MeanAgentR 302.464 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 107 | Buf 200000
+Saved checkpoint at episode 2500
+Ep 2510/4000 | TotalR   884.92 | MeanAgentR 294.972 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 103 | Buf 200000
+Ep 2520/4000 | TotalR   391.67 | MeanAgentR 130.557 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 106 | Buf 200000
+Ep 2530/4000 | TotalR   795.84 | MeanAgentR 265.279 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.17 | Len 200 | Buf 200000
+Ep 2540/4000 | TotalR   833.99 | MeanAgentR 277.997 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 103 | Buf 200000
+Ep 2550/4000 | TotalR   887.42 | MeanAgentR 295.808 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 103 | Buf 200000
+Saved checkpoint at episode 2550
+Ep 2560/4000 | TotalR   937.00 | MeanAgentR 312.332 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 106 | Buf 200000
+Ep 2570/4000 | TotalR   265.74 | MeanAgentR 88.578 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 200000
+Ep 2580/4000 | TotalR   218.44 | MeanAgentR 72.814 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.68 | Len 100 | Buf 200000
+Ep 2590/4000 | TotalR   571.98 | MeanAgentR 190.661 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.82 | Len 112 | Buf 200000
+Ep 2600/4000 | TotalR   560.83 | MeanAgentR 186.943 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 104 | Buf 200000
+Saved checkpoint at episode 2600
+Ep 2610/4000 | TotalR  -516.40 | MeanAgentR -172.134 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  4.36 | Len 200 | Buf 200000
+Ep 2620/4000 | TotalR   975.69 | MeanAgentR 325.229 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 111 | Buf 200000
+Ep 2630/4000 | TotalR   303.05 | MeanAgentR 101.016 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.17 | Len 200 | Buf 200000
+Ep 2640/4000 | TotalR   179.49 | MeanAgentR 59.830 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.14 | Len 200 | Buf 200000
+Ep 2650/4000 | TotalR   886.36 | MeanAgentR 295.455 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 118 | Buf 200000
+Saved checkpoint at episode 2650
+Ep 2660/4000 | TotalR   414.83 | MeanAgentR 138.277 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 105 | Buf 200000
+Ep 2670/4000 | TotalR  -227.89 | MeanAgentR -75.963 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  2.84 | Len 200 | Buf 200000
+Ep 2680/4000 | TotalR   805.53 | MeanAgentR 268.510 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 111 | Buf 200000
+Ep 2690/4000 | TotalR   701.13 | MeanAgentR 233.709 | Finished 2/3 | Crashed 0/3 | NewFin 2 | NewCrash 0 | AvgDist  1.16 | Len 200 | Buf 200000
+Ep 2700/4000 | TotalR   539.82 | MeanAgentR 179.941 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.31 | Len 102 | Buf 200000
+Saved checkpoint at episode 2700
+Ep 2710/4000 | TotalR   217.95 | MeanAgentR 72.650 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.66 | Len 104 | Buf 200000
+Ep 2720/4000 | TotalR   122.06 | MeanAgentR 40.688 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.17 | Len 200 | Buf 200000
+Ep 2730/4000 | TotalR   612.08 | MeanAgentR 204.028 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.70 | Len 109 | Buf 200000
+Ep 2740/4000 | TotalR   662.11 | MeanAgentR 220.703 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.74 | Len 109 | Buf 200000
+Ep 2750/4000 | TotalR   925.53 | MeanAgentR 308.509 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 108 | Buf 200000
+Saved checkpoint at episode 2750
+Ep 2760/4000 | TotalR   834.61 | MeanAgentR 278.202 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 103 | Buf 200000
+Ep 2770/4000 | TotalR   753.32 | MeanAgentR 251.106 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 110 | Buf 200000
+Ep 2780/4000 | TotalR   929.46 | MeanAgentR 309.820 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 104 | Buf 200000
+Ep 2790/4000 | TotalR   869.60 | MeanAgentR 289.868 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 119 | Buf 200000
+Ep 2800/4000 | TotalR   698.03 | MeanAgentR 232.678 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 200000
+Saved checkpoint at episode 2800
+Ep 2810/4000 | TotalR   667.65 | MeanAgentR 222.550 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 99 | Buf 200000
+Ep 2820/4000 | TotalR   350.89 | MeanAgentR 116.962 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.47 | Len 104 | Buf 200000
+Ep 2830/4000 | TotalR   556.19 | MeanAgentR 185.398 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 99 | Buf 200000
+Ep 2840/4000 | TotalR   465.36 | MeanAgentR 155.120 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Ep 2850/4000 | TotalR   674.40 | MeanAgentR 224.800 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.72 | Len 98 | Buf 200000
+Saved checkpoint at episode 2850
+Ep 2860/4000 | TotalR   305.59 | MeanAgentR 101.865 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  3.31 | Len 200 | Buf 200000
+Ep 2870/4000 | TotalR   266.05 | MeanAgentR 88.685 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.20 | Len 83 | Buf 200000
+Ep 2880/4000 | TotalR   765.58 | MeanAgentR 255.195 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 108 | Buf 200000
+Ep 2890/4000 | TotalR   577.24 | MeanAgentR 192.413 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.75 | Len 104 | Buf 200000
+Ep 2900/4000 | TotalR   836.55 | MeanAgentR 278.850 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 113 | Buf 200000
+Saved checkpoint at episode 2900
+Ep 2910/4000 | TotalR  -311.88 | MeanAgentR -103.959 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  3.52 | Len 200 | Buf 200000
+Ep 2920/4000 | TotalR   961.91 | MeanAgentR 320.637 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 108 | Buf 200000
+Ep 2930/4000 | TotalR   900.02 | MeanAgentR 300.005 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 113 | Buf 200000
+Ep 2940/4000 | TotalR   799.99 | MeanAgentR 266.664 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 109 | Buf 200000
+Ep 2950/4000 | TotalR   897.77 | MeanAgentR 299.256 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 108 | Buf 200000
+Saved checkpoint at episode 2950
+Ep 2960/4000 | TotalR   943.57 | MeanAgentR 314.524 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.92 | Len 107 | Buf 200000
+Ep 2970/4000 | TotalR   834.48 | MeanAgentR 278.161 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 109 | Buf 200000
+Ep 2980/4000 | TotalR   845.77 | MeanAgentR 281.925 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 104 | Buf 200000
+Ep 2990/4000 | TotalR   382.22 | MeanAgentR 127.407 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  2.62 | Len 110 | Buf 200000
+Ep 3000/4000 | TotalR   690.94 | MeanAgentR 230.313 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.77 | Len 103 | Buf 200000
+Saved checkpoint at episode 3000
+Ep 3010/4000 | TotalR   860.09 | MeanAgentR 286.695 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 112 | Buf 200000
+Ep 3020/4000 | TotalR   440.02 | MeanAgentR 146.674 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.78 | Len 111 | Buf 200000
+Ep 3030/4000 | TotalR   909.70 | MeanAgentR 303.232 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 111 | Buf 200000
+Ep 3040/4000 | TotalR   819.09 | MeanAgentR 273.029 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 101 | Buf 200000
+Ep 3050/4000 | TotalR   680.59 | MeanAgentR 226.864 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 106 | Buf 200000
+Saved checkpoint at episode 3050
+Ep 3060/4000 | TotalR   670.65 | MeanAgentR 223.550 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 110 | Buf 200000
+Ep 3070/4000 | TotalR   802.14 | MeanAgentR 267.380 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 200000
+Ep 3080/4000 | TotalR   225.83 | MeanAgentR 75.277 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 105 | Buf 200000
+Ep 3090/4000 | TotalR   275.38 | MeanAgentR 91.793 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  1.81 | Len 200 | Buf 200000
+Ep 3100/4000 | TotalR   454.27 | MeanAgentR 151.422 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 101 | Buf 200000
+Saved checkpoint at episode 3100
+Ep 3110/4000 | TotalR   505.21 | MeanAgentR 168.403 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.78 | Len 105 | Buf 200000
+Ep 3120/4000 | TotalR   232.28 | MeanAgentR 77.428 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.69 | Len 200 | Buf 200000
+Ep 3130/4000 | TotalR   923.32 | MeanAgentR 307.772 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 111 | Buf 200000
+Ep 3140/4000 | TotalR   875.57 | MeanAgentR 291.857 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 109 | Buf 200000
+Ep 3150/4000 | TotalR   905.62 | MeanAgentR 301.875 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 106 | Buf 200000
+Saved checkpoint at episode 3150
+Ep 3160/4000 | TotalR   875.76 | MeanAgentR 291.919 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.92 | Len 102 | Buf 200000
+Ep 3170/4000 | TotalR   896.82 | MeanAgentR 298.939 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 111 | Buf 200000
+Ep 3180/4000 | TotalR   899.54 | MeanAgentR 299.848 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 100 | Buf 200000
+Ep 3190/4000 | TotalR   670.22 | MeanAgentR 223.407 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 101 | Buf 200000
+Ep 3200/4000 | TotalR   538.24 | MeanAgentR 179.413 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.81 | Len 104 | Buf 200000
+Saved checkpoint at episode 3200
+Ep 3210/4000 | TotalR   627.89 | MeanAgentR 209.297 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.83 | Len 107 | Buf 200000
+Ep 3220/4000 | TotalR   851.87 | MeanAgentR 283.956 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 108 | Buf 200000
+Ep 3230/4000 | TotalR   432.23 | MeanAgentR 144.075 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.44 | Len 108 | Buf 200000
+Ep 3240/4000 | TotalR   929.44 | MeanAgentR 309.814 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 103 | Buf 200000
+Ep 3250/4000 | TotalR   901.66 | MeanAgentR 300.554 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Saved checkpoint at episode 3250
+Ep 3260/4000 | TotalR   857.48 | MeanAgentR 285.828 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 105 | Buf 200000
+Ep 3270/4000 | TotalR   848.70 | MeanAgentR 282.899 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 103 | Buf 200000
+Ep 3280/4000 | TotalR   326.00 | MeanAgentR 108.668 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.00 | Len 112 | Buf 200000
+Ep 3290/4000 | TotalR   822.51 | MeanAgentR 274.171 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 104 | Buf 200000
+Ep 3300/4000 | TotalR   844.90 | MeanAgentR 281.634 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Saved checkpoint at episode 3300
+Ep 3310/4000 | TotalR   947.38 | MeanAgentR 315.793 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 111 | Buf 200000
+Ep 3320/4000 | TotalR   675.05 | MeanAgentR 225.017 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 102 | Buf 200000
+Ep 3330/4000 | TotalR   652.13 | MeanAgentR 217.376 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.79 | Len 111 | Buf 200000
+Ep 3340/4000 | TotalR   941.12 | MeanAgentR 313.707 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 200000
+Ep 3350/4000 | TotalR   965.39 | MeanAgentR 321.796 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 107 | Buf 200000
+Saved checkpoint at episode 3350
+Ep 3360/4000 | TotalR   967.26 | MeanAgentR 322.422 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 200000
+Ep 3370/4000 | TotalR   424.56 | MeanAgentR 141.522 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.43 | Len 104 | Buf 200000
+Ep 3380/4000 | TotalR   830.15 | MeanAgentR 276.718 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 109 | Buf 200000
+Ep 3390/4000 | TotalR   791.11 | MeanAgentR 263.704 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 105 | Buf 200000
+Ep 3400/4000 | TotalR   894.37 | MeanAgentR 298.124 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 108 | Buf 200000
+Saved checkpoint at episode 3400
+Ep 3410/4000 | TotalR   907.03 | MeanAgentR 302.342 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 110 | Buf 200000
+Ep 3420/4000 | TotalR   -57.76 | MeanAgentR -19.254 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  2.96 | Len 200 | Buf 200000
+Ep 3430/4000 | TotalR   916.07 | MeanAgentR 305.357 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 103 | Buf 200000
+Ep 3440/4000 | TotalR   884.75 | MeanAgentR 294.917 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 104 | Buf 200000
+Ep 3450/4000 | TotalR   836.34 | MeanAgentR 278.781 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 200000
+Saved checkpoint at episode 3450
+Ep 3460/4000 | TotalR   504.29 | MeanAgentR 168.095 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 105 | Buf 200000
+Ep 3470/4000 | TotalR   637.98 | MeanAgentR 212.659 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 104 | Buf 200000
+Ep 3480/4000 | TotalR   831.05 | MeanAgentR 277.017 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 103 | Buf 200000
+Ep 3490/4000 | TotalR   962.05 | MeanAgentR 320.683 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 103 | Buf 200000
+Ep 3500/4000 | TotalR   936.51 | MeanAgentR 312.170 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 112 | Buf 200000
+Saved checkpoint at episode 3500
+Ep 3510/4000 | TotalR   799.28 | MeanAgentR 266.426 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.99 | Len 105 | Buf 200000
+Ep 3520/4000 | TotalR   759.90 | MeanAgentR 253.301 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 102 | Buf 200000
+Ep 3530/4000 | TotalR   949.96 | MeanAgentR 316.653 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 102 | Buf 200000
+Ep 3540/4000 | TotalR   887.52 | MeanAgentR 295.841 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 104 | Buf 200000
+Ep 3550/4000 | TotalR   945.57 | MeanAgentR 315.189 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 107 | Buf 200000
+Saved checkpoint at episode 3550
+Ep 3560/4000 | TotalR   766.66 | MeanAgentR 255.552 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 104 | Buf 200000
+Ep 3570/4000 | TotalR   679.21 | MeanAgentR 226.402 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.65 | Len 103 | Buf 200000
+Ep 3580/4000 | TotalR   897.91 | MeanAgentR 299.304 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 111 | Buf 200000
+Ep 3590/4000 | TotalR   738.45 | MeanAgentR 246.148 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 102 | Buf 200000
+Ep 3600/4000 | TotalR   919.28 | MeanAgentR 306.425 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 100 | Buf 200000
+Saved checkpoint at episode 3600
+Ep 3610/4000 | TotalR   774.62 | MeanAgentR 258.206 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 105 | Buf 200000
+Ep 3620/4000 | TotalR   960.21 | MeanAgentR 320.069 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 105 | Buf 200000
+Ep 3630/4000 | TotalR   734.51 | MeanAgentR 244.838 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 105 | Buf 200000
+Ep 3640/4000 | TotalR  -427.99 | MeanAgentR -142.663 | Finished 0/3 | Crashed 2/3 | NewFin 0 | NewCrash 2 | AvgDist  4.10 | Len 200 | Buf 200000
+Ep 3650/4000 | TotalR   846.17 | MeanAgentR 282.056 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 103 | Buf 200000
+Saved checkpoint at episode 3650
+Ep 3660/4000 | TotalR   688.32 | MeanAgentR 229.439 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.67 | Len 102 | Buf 200000
+Ep 3670/4000 | TotalR   886.87 | MeanAgentR 295.625 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 103 | Buf 200000
+Ep 3680/4000 | TotalR   666.41 | MeanAgentR 222.136 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 102 | Buf 200000
+Ep 3690/4000 | TotalR   850.74 | MeanAgentR 283.579 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 107 | Buf 200000
+Ep 3700/4000 | TotalR   931.26 | MeanAgentR 310.421 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 104 | Buf 200000
+Saved checkpoint at episode 3700
+Ep 3710/4000 | TotalR   846.43 | MeanAgentR 282.144 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 104 | Buf 200000
+Ep 3720/4000 | TotalR   695.43 | MeanAgentR 231.811 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 106 | Buf 200000
+Ep 3730/4000 | TotalR   496.86 | MeanAgentR 165.621 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  2.38 | Len 119 | Buf 200000
+Ep 3740/4000 | TotalR   806.75 | MeanAgentR 268.916 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 108 | Buf 200000
+Ep 3750/4000 | TotalR   875.90 | MeanAgentR 291.965 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 105 | Buf 200000
+Saved checkpoint at episode 3750
+Ep 3760/4000 | TotalR   817.97 | MeanAgentR 272.655 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.98 | Len 103 | Buf 200000
+Ep 3770/4000 | TotalR   187.64 | MeanAgentR 62.547 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.23 | Len 98 | Buf 200000
+Ep 3780/4000 | TotalR   204.75 | MeanAgentR 68.249 | Finished 1/3 | Crashed 2/3 | NewFin 1 | NewCrash 2 | AvgDist  3.24 | Len 99 | Buf 200000
+Ep 3790/4000 | TotalR   864.81 | MeanAgentR 288.270 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Ep 3800/4000 | TotalR   940.97 | MeanAgentR 313.658 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 110 | Buf 200000
+Saved checkpoint at episode 3800
+Ep 3810/4000 | TotalR   850.63 | MeanAgentR 283.544 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 103 | Buf 200000
+Ep 3820/4000 | TotalR   882.60 | MeanAgentR 294.200 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 110 | Buf 200000
+Ep 3830/4000 | TotalR   837.10 | MeanAgentR 279.033 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 100 | Buf 200000
+Ep 3840/4000 | TotalR   935.74 | MeanAgentR 311.914 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.94 | Len 109 | Buf 200000
+Ep 3850/4000 | TotalR   480.05 | MeanAgentR 160.018 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.70 | Len 104 | Buf 200000
+Saved checkpoint at episode 3850
+Ep 3860/4000 | TotalR   863.29 | MeanAgentR 287.763 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Ep 3870/4000 | TotalR   845.05 | MeanAgentR 281.685 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 104 | Buf 200000
+Ep 3880/4000 | TotalR   935.00 | MeanAgentR 311.668 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.97 | Len 106 | Buf 200000
+Ep 3890/4000 | TotalR   684.83 | MeanAgentR 228.276 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.93 | Len 110 | Buf 200000
+Ep 3900/4000 | TotalR   -87.30 | MeanAgentR -29.100 | Finished 1/3 | Crashed 1/3 | NewFin 1 | NewCrash 1 | AvgDist  1.95 | Len 200 | Buf 200000
+Saved checkpoint at episode 3900
+Ep 3910/4000 | TotalR   851.85 | MeanAgentR 283.949 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 200000
+Ep 3920/4000 | TotalR   924.91 | MeanAgentR 308.305 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 107 | Buf 200000
+Ep 3930/4000 | TotalR   666.85 | MeanAgentR 222.284 | Finished 2/3 | Crashed 1/3 | NewFin 2 | NewCrash 1 | AvgDist  1.80 | Len 100 | Buf 200000
+Ep 3940/4000 | TotalR   907.78 | MeanAgentR 302.594 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 104 | Buf 200000
+Ep 3950/4000 | TotalR   335.88 | MeanAgentR 111.960 | Finished 0/3 | Crashed 3/3 | NewFin 0 | NewCrash 3 | AvgDist  3.35 | Len 78 | Buf 200000
+Saved checkpoint at episode 3950
+Ep 3960/4000 | TotalR   780.77 | MeanAgentR 260.258 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 114 | Buf 200000
+Ep 3970/4000 | TotalR   911.98 | MeanAgentR 303.994 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.95 | Len 106 | Buf 200000
+Ep 3980/4000 | TotalR   800.18 | MeanAgentR 266.726 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 107 | Buf 200000
+Ep 3990/4000 | TotalR   935.45 | MeanAgentR 311.816 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 109 | Buf 200000
+Ep 4000/4000 | TotalR   838.14 | MeanAgentR 279.379 | Finished 3/3 | Crashed 0/3 | NewFin 3 | NewCrash 0 | AvgDist  0.96 | Len 106 | Buf 200000
+Saved checkpoint at episode 4000
+Training finished. Saved final model.
+Saved training reward curve to training_rewards.png
+Saved training_summary.csv
+Running simulation...
+Generating animation (45 steps)...
+Saving to flocking_crash_test.gif...
+Done.
