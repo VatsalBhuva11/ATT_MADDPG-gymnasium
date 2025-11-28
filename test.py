@@ -32,6 +32,8 @@ class FlockingEnv:
         self.max_speed = max_speed
         self.save_map_path = save_map_path
         self.agent_radius = agent_radius
+        self.flocking_weight = 1.0   # starts with full flocking emphasis
+
 
         # Generate fixed map once
         self.goal = np.array([self.world_size * 0.85, self.world_size * 0.85], dtype=np.float32)
@@ -261,33 +263,40 @@ class FlockingEnv:
 
     def _compute_rewards(self, a, prev_dist_to_goal, newly_finished, newly_crashed):
         """
-        Updated reward that treats agent-agent proximity as a soft penalty (pre-crash)
-        and strongly penalizes one-time crashes (including agent-agent crashes).
+        Goal-weighted reward: stronger delta-distance + success.
+        Flocking reward reduced; proximity penalties kept to avoid collisions.
         """
         rewards = np.zeros(self.n, dtype=np.float32)
 
-        # ---------- 1) Dense progress shaping ----------
+        # -------- parameters (tune these) --------
+        delta_scale = 30.0                # increase goal-directed shaping
+        per_step_dist_pen = 0.02
+        success_reward = 80.0             # larger finishing bonus
+        newly_crashed_penalty = -100.0
+        crashed_ongoing_pen = -0.5
+
+        # flocking/cohesion parameters (reduced)
+        flocking_good_reward = 0.4        # smaller positive reward for staying in band
+        flocking_close_penalty = -2.0     # penalty if too close
+        flocking_far_penalty_scale = 0.2  # small penalty for being too far
+
+        # proximity (pre-crash) penalty scale
+        prox_multiplier = 2.5             # scale for normalized proximity penalty
+
+        # -------- 1) Dense progress shaping (stronger) --------
         dist_to_goal = np.linalg.norm(self.pos - self.goal, axis=1)
         delta = prev_dist_to_goal - dist_to_goal
-        rewards += (delta * 20.0)               # move closer -> positive
-        rewards -= dist_to_goal * 0.02          # small per-step distance penalty
+        rewards += (delta * delta_scale)
+        rewards -= dist_to_goal * per_step_dist_pen
 
-        # ---------- 2) One-time success / crash ----------
-        newly_finished = np.asarray(newly_finished, dtype=bool)
-        newly_crashed = np.asarray(newly_crashed, dtype=bool)
-        rewards[newly_finished] += 50.0
+        # -------- 2) Success & crash one-time --------
+        rewards[np.asarray(newly_finished, dtype=bool)] += success_reward
+        rewards[np.asarray(newly_crashed, dtype=bool)] += newly_crashed_penalty
+        rewards[self.crashed] += crashed_ongoing_pen
 
-        # Make crash penalty stronger now that agent-agent collisions exist
-        newly_crashed_penalty = -100.0
-        rewards[newly_crashed] += newly_crashed_penalty
-
-        # small continuing penalty if currently crashed (discourage staying dead)
-        rewards[self.crashed] += -0.5
-
-        # ---------- 3) Pairwise agent proximity penalties (dense, pre-crash) ----------
-        # Compute pairwise distances matrix
-        pos = self.pos
+        # -------- 3) Pairwise proximity (pre-crash) --------
         n = self.n
+        pos = self.pos
         pdist = np.zeros((n, n), dtype=np.float32)
         for i in range(n):
             for j in range(i+1, n):
@@ -295,33 +304,27 @@ class FlockingEnv:
                 pdist[i, j] = d
                 pdist[j, i] = d
 
-        # Parameters (tunable)
-        agent_collision_dist = 2.0 * self.agent_radius        # crash threshold used in step()
-        safe_margin = agent_collision_dist * 1.6              # inside this margin => strong proximity penalty
-        soft_margin = agent_collision_dist * 3.0              # beyond this considered "safe" for proximity
+        agent_collision_dist = 2.0 * self.agent_radius
+        safe_margin = agent_collision_dist * 1.6
+        soft_margin = agent_collision_dist * 3.0
 
-        # For each agent, compute a proximity penalty that grows as they approach < safe_margin
         for i in range(n):
             if self.crashed[i] or self.finished[i]:
                 continue
-            # consider only other active agents (or you may include finished/crashed depending on desired behavior)
-            other_indices = [j for j in range(n) if j != i]
             prox_pen = 0.0
-            for j in other_indices:
+            for j in range(n):
+                if j == i: continue
                 d = pdist[i, j]
-                # If inside immediate danger zone (between collision and safe_margin), penalty is strong
                 if d < safe_margin:
-                    # scaled penalty: stronger the closer they are
-                    prox_pen += max(0.0, (safe_margin - d) / (safe_margin - (agent_collision_dist + 1e-6)))
-                # Gentle penalty for being somewhat far but beyond soft_margin? (optional)
+                    # normalized closeness: 1 when d==agent_collision_dist, 0 at safe_margin
+                    denom = max(1e-6, safe_margin - agent_collision_dist)
+                    prox_pen += max(0.0, (safe_margin - d) / denom)
                 elif d > soft_margin:
-                    # small negative to encourage cohesion (but weak)
+                    # slight negative to encourage cohesion but small (kept gentle)
                     prox_pen -= 0.01 * (d - soft_margin)
-            # scale per-agent prox penalty
-            rewards[i] += -3.0 * prox_pen   # tune multiplier; here -3 per unit of normalized proximity
+            rewards[i] += -prox_multiplier * prox_pen
 
-        # ---------- 4) Flocking (cohesion/separation) but safety-aware ----------
-        # desired band (world units)
+        # -------- 4) Reduced flocking reward (safety-aware) --------
         desired = 0.8
         tol = 0.45
         min_band = max(0.1, desired - tol)
@@ -335,30 +338,27 @@ class FlockingEnv:
                 continue
             dists = np.array([pdist[i, j] for j in others])
             mean_dist = np.mean(dists)
-            # Do not reward cohesion if there are any dangerously close neighbors
             if np.any(dists < (agent_collision_dist * 1.05)):
-                # if dangerously close, impose extra penalty (handled partly by prox_pen)
-                rewards[i] -= 1.5
+                # strongly discourage being dangerously close
+                rewards[i] += flocking_close_penalty * self.flocking_weight
             else:
-                # reward only if within safe desired band
                 if (mean_dist >= min_band) and (mean_dist <= max_band):
-                    rewards[i] += 0.8   # smaller than before to avoid overpowering goal progress
+                    rewards[i] += flocking_good_reward * self.flocking_weight
                 else:
                     if mean_dist < min_band:
                         rewards[i] -= 1.0 * (min_band - mean_dist)
                     else:
-                        rewards[i] -= 0.2 * (mean_dist - max_band)
+                        rewards[i] -= flocking_far_penalty_scale * (mean_dist - max_band)
 
-        # ---------- 5) Hard collision penalty (redundant with newly_crashed but keeps consistency) ----------
+        # -------- 5) Hard collision penalty as redundancy --------
         min_dist_collision = agent_collision_dist * 0.95
         for i in range(n):
-            for j in range(i + 1, n):
+            for j in range(i+1, n):
                 if pdist[i, j] < min_dist_collision:
-                    # this should usually coincide with newly_crashed detection
                     rewards[i] -= 8.0
                     rewards[j] -= 8.0
 
-        # ---------- 6) Control cost ----------
+        # -------- 6) Control cost --------
         ctrl_cost = -0.01 * np.sum(a**2, axis=1)
         rewards += ctrl_cost
 
@@ -603,8 +603,8 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 3
-    n_obstacles = 6
+    n_agents = 8
+    n_obstacles = 5
     neighbor_obs = 2
 
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs,
@@ -620,7 +620,7 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs, K=4, critic_lr=1e-3)
     buffer = ReplayBuffer(200000)
 
-    episodes = 3000
+    episodes = 5000
     batch_size = 128
     warmup_steps = 2000
     total_steps = 0
@@ -680,6 +680,9 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
         episode_finished_counts.append(ep_finished)
         episode_crashed_counts.append(ep_crashed)
         episode_avg_dist_to_goal.append(avg_dist_goal)
+        # Decay flocking emphasis as episodes progress
+        env.flocking_weight = max(0.1, env.flocking_weight * 0.995)
+
 
         # Print more informative logging every episode or every N episodes
         if (ep + 1) % 10 == 0:  # print every ep (change to 10 if you want less verbose)
@@ -722,12 +725,12 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     print("Saved training_summary.csv")
 
 if __name__ == "__main__":
-    MODE = "test" 
+    MODE = "train" 
     MODEL_FILE = "att_maddpg_obstacles.pth"
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=5)
+        visualize_model(MODEL_FILE, n_agents=8, n_obstacles=5)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=3, n_obstacles=5)
+        visualize_model(MODEL_FILE, n_agents=8, n_obstacles=5)
