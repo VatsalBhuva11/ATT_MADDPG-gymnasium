@@ -525,7 +525,7 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs)
 
     # uncomment below line to test the algo on fixed obstacles on which training done
-    # env.load_map("fixed_map.npz")
+    env.load_map("fixed_map.npz")
     obs = env.reset()
     
     obs_dim = obs.shape[1]
@@ -603,7 +603,7 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 8
+    n_agents = 4
     n_obstacles = 5
     neighbor_obs = 2
 
@@ -620,7 +620,7 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs, K=4, critic_lr=1e-3)
     buffer = ReplayBuffer(200000)
 
-    episodes = 5000
+    episodes = 4000
     batch_size = 128
     warmup_steps = 2000
     total_steps = 0
@@ -730,7 +730,7 @@ if __name__ == "__main__":
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=8, n_obstacles=5)
+        visualize_model(MODEL_FILE, n_agents=4, n_obstacles=5)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=8, n_obstacles=5)
+        visualize_model(MODEL_FILE, n_agents=4, n_obstacles=5, neighbor_obs=2)
