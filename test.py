@@ -603,8 +603,8 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 4
-    n_obstacles = 5
+    n_agents = 5
+    n_obstacles = 4
     neighbor_obs = 2
 
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs,
@@ -730,7 +730,7 @@ if __name__ == "__main__":
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=4, n_obstacles=5)
+        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=4, n_obstacles=5, neighbor_obs=2)
+        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4, neighbor_obs=2)
