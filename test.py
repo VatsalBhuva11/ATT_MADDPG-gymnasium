@@ -16,8 +16,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # 2D Flocking Env with Fixed Map & Crash Logic
 # ------------------------------
 class FlockingEnv:
-    def __init__(self, n_agents=3, n_obstacles=3, world_size=10.0, dt=0.1, max_steps=200,
-                 neighbor_obs=2, obstacle_obs=2, max_speed=1.0, seed=None, save_map_path=None, agent_radius=0.15):
+    def __init__(self, n_agents=3, n_obstacles=3, world_size=20.0, dt=0.1, max_steps=200,
+                 neighbor_obs=2, obstacle_obs=2, max_speed=1.0, seed=None, save_map_path=None, agent_radius=0.08):
         if seed is not None:
             np.random.seed(seed)
         self.n = n_agents
@@ -27,8 +27,8 @@ class FlockingEnv:
         self.max_steps = max_steps
         self.neighbor_obs = neighbor_obs
         self.obstacle_obs = obstacle_obs
-        self.goal_threshold = 1.0
-        self.obstacle_radius = 0.8
+        self.goal_threshold = 2.0
+        self.obstacle_radius = 1
         self.max_speed = max_speed
         self.save_map_path = save_map_path
         self.agent_radius = agent_radius
@@ -73,7 +73,7 @@ class FlockingEnv:
 
         # Desired safe spacing between agents (world units). Tune to your desired formation.
         # Using same 'desired' from flocking rewards is reasonable.
-        desired_spacing = 0.8
+        desired_spacing = 1
 
         n = self.n
         positions = []
@@ -603,9 +603,9 @@ def visualize_model(filename, n_agents=3, neighbor_obs=2, n_obstacles=3):
 # Training Main
 # ------------------------------
 def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz"):
-    n_agents = 5
-    n_obstacles = 4
-    neighbor_obs = 2
+    n_agents = 20
+    n_obstacles = 7
+    neighbor_obs = 4
 
     env = FlockingEnv(n_agents=n_agents, n_obstacles=n_obstacles, neighbor_obs=neighbor_obs,
                       max_speed=1.0, seed=None, save_map_path=mapfile)
@@ -620,7 +620,7 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     trainer = AttMADDPG(n_agents, obs_dim, action_dim, neighbor_obs, K=4, critic_lr=1e-3)
     buffer = ReplayBuffer(200000)
 
-    episodes = 4000
+    episodes = 10000
     batch_size = 128
     warmup_steps = 2000
     total_steps = 0
@@ -725,12 +725,12 @@ def train_example(save_path="att_maddpg_obstacles.pth", mapfile="fixed_map.npz")
     print("Saved training_summary.csv")
 
 if __name__ == "__main__":
-    MODE = "train" 
+    MODE = "test" 
     MODEL_FILE = "att_maddpg_obstacles.pth"
     
     if MODE == "train":
         train_example(save_path=MODEL_FILE)
-        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4)
+        visualize_model(MODEL_FILE, n_agents=20, n_obstacles=7)
         
     elif MODE == "test":
-        visualize_model(MODEL_FILE, n_agents=5, n_obstacles=4, neighbor_obs=2)
+        visualize_model(MODEL_FILE, n_agents=20, n_obstacles=7, neighbor_obs=4)
